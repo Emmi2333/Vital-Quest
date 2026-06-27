@@ -1,0 +1,45 @@
+name: Build Foundry Module Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Read module id
+        id: module
+        shell: bash
+        run: |
+          MODULE_ID=$(node -p "require('./module.json').id")
+          VERSION=$(node -p "require('./module.json').version")
+          echo "id=$MODULE_ID" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Build module zip
+        shell: bash
+        run: |
+          MODULE_ID="${{ steps.module.outputs.id }}"
+          mkdir -p "dist/$MODULE_ID"
+          cp module.json README.md CHANGELOG.md "dist/$MODULE_ID/"
+          cp -r lang scripts styles templates assets "dist/$MODULE_ID/"
+          cd dist
+          zip -r "../$MODULE_ID.zip" "$MODULE_ID"
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            module.json
+            ${{ steps.module.outputs.id }}.zip
+          generate_release_notes: true
+

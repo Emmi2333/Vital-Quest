@@ -1,0 +1,190 @@
+.strixhaven-manager .window-content {
+  background:
+    radial-gradient(circle at top left, rgba(162, 121, 255, 0.18), transparent 34rem),
+    linear-gradient(135deg, #15111f 0%, #21182f 48%, #111827 100%);
+  color: #f5edf9;
+  padding: 0;
+}
+
+.scm-shell {
+  font-family: "Signika", "Modesto Condensed", serif;
+  padding: 1rem;
+}
+
+.scm-hero,
+.scm-panel,
+.scm-actions {
+  border: 1px solid rgba(220, 198, 255, 0.24);
+  background: rgba(10, 9, 17, 0.72);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+}
+
+.scm-hero {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.scm-kicker,
+.scm-panel h2,
+.scm-college-card span,
+.scm-generated span,
+.scm-fields span,
+.scm-full span {
+  color: #c9a7ff;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.scm-hero h1 {
+  margin: 0.2rem 0;
+  color: #ffffff;
+  font-size: 2rem;
+}
+
+.scm-college-card {
+  border-left: 3px solid #d8c2ff;
+  padding-left: 1rem;
+}
+
+.scm-college-card strong {
+  display: block;
+  margin: 0.35rem 0;
+}
+
+.scm-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.scm-actions button,
+.scm-panel-header button,
+.scm-row button {
+  border: 1px solid rgba(223, 204, 255, 0.35);
+  background: rgba(126, 74, 200, 0.26);
+  color: #fff;
+  padding: 0.45rem 0.7rem;
+  cursor: pointer;
+}
+
+.scm-actions button:hover,
+.scm-panel-header button:hover,
+.scm-row button:hover {
+  background: rgba(170, 115, 255, 0.38);
+}
+
+.scm-actions button.danger,
+.scm-row button.danger {
+  border-color: rgba(255, 142, 142, 0.45);
+  background: rgba(130, 28, 58, 0.34);
+}
+
+.scm-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.scm-grid.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.scm-panel {
+  padding: 1rem;
+}
+
+.scm-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.scm-panel h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+}
+
+.scm-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.scm-full {
+  display: block;
+  margin-top: 0.75rem;
+}
+
+.scm-shell input,
+.scm-shell select,
+.scm-shell textarea {
+  width: 100%;
+  border: 1px solid rgba(220, 198, 255, 0.24);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  padding: 0.45rem;
+}
+
+.scm-shell textarea {
+  min-height: 4.8rem;
+  resize: vertical;
+}
+
+.scm-generated {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.scm-generated div {
+  border: 1px solid rgba(220, 198, 255, 0.18);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.75rem;
+}
+
+.scm-row {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 0.8fr 0.8fr 0.8fr 1.4fr auto;
+  gap: 0.45rem;
+  align-items: start;
+  padding: 0.6rem 0;
+  border-top: 1px solid rgba(220, 198, 255, 0.16);
+}
+
+.scm-row.compact {
+  grid-template-columns: 1.1fr 1fr 0.8fr 1.6fr auto;
+}
+
+.scm-row.relationship {
+  grid-template-columns: 1fr 0.8fr 0.8fr 0.45fr 1fr 1.4fr auto;
+}
+
+.scm-row textarea {
+  min-height: 2.4rem;
+}
+
+.scm-row .icon {
+  min-width: 2rem;
+}
+
+@media (max-width: 900px) {
+  .scm-hero,
+  .scm-grid.two,
+  .scm-fields,
+  .scm-generated,
+  .scm-row,
+  .scm-row.compact,
+  .scm-row.relationship {
+    grid-template-columns: 1fr;
+  }
+}
+

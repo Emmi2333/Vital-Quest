@@ -1,0 +1,15 @@
+# Local Foundry/The Forge test builds
+dist/
+*.zip
+
+# OS/editor clutter
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local logs/temp files
+*.log
+tmp/
+temp/
+

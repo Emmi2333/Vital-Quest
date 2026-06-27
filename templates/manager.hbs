@@ -1,0 +1,183 @@
+<form class="scm-shell">
+  <section class="scm-hero">
+    <div>
+      <p class="scm-kicker">Vital Quest · Strixhaven Manager</p>
+      <h1>{{data.calendar.term}} · Week {{data.calendar.week}}</h1>
+      <p>{{data.calendar.day}} · {{data.calendar.timeOfDay}}</p>
+    </div>
+    <div class="scm-college-card">
+      <span>{{college.label}}</span>
+      <strong>{{college.theme}}</strong>
+      <p>{{college.description}}</p>
+    </div>
+  </section>
+
+  <nav class="scm-actions">
+    <button type="button" data-action="save-overview"><i class="fas fa-save"></i> Save Overview</button>
+    <button type="button" data-action="advance-day"><i class="fas fa-sun"></i> Advance Day</button>
+    <button type="button" data-action="generate-event"><i class="fas fa-wand-sparkles"></i> Campus Event</button>
+    <button type="button" data-action="generate-rumor"><i class="fas fa-comment-dots"></i> Rumor</button>
+    <button type="button" class="danger" data-action="reset-manager"><i class="fas fa-rotate-left"></i> Reset</button>
+  </nav>
+
+  <section class="scm-grid two">
+    <article class="scm-panel">
+      <h2>School Clock</h2>
+      <div class="scm-fields">
+        <label>
+          <span>Term</span>
+          <input type="text" name="calendar.term" value="{{data.calendar.term}}">
+        </label>
+        <label>
+          <span>Week</span>
+          <input type="number" min="1" name="calendar.week" value="{{data.calendar.week}}">
+        </label>
+        <label>
+          <span>Day</span>
+          <select name="calendar.day">
+            <option {{#if (eq data.calendar.day "Moonday")}}selected{{/if}}>Moonday</option>
+            <option {{#if (eq data.calendar.day "Toilsday")}}selected{{/if}}>Toilsday</option>
+            <option {{#if (eq data.calendar.day "Wandsday")}}selected{{/if}}>Wandsday</option>
+            <option {{#if (eq data.calendar.day "Thelsday")}}selected{{/if}}>Thelsday</option>
+            <option {{#if (eq data.calendar.day "Fryday")}}selected{{/if}}>Fryday</option>
+            <option {{#if (eq data.calendar.day "Standday")}}selected{{/if}}>Standday</option>
+            <option {{#if (eq data.calendar.day "Sunsday")}}selected{{/if}}>Sunsday</option>
+          </select>
+        </label>
+        <label>
+          <span>Time of Day</span>
+          <select name="calendar.timeOfDay">
+            <option {{#if (eq data.calendar.timeOfDay "Morning")}}selected{{/if}}>Morning</option>
+            <option {{#if (eq data.calendar.timeOfDay "Afternoon")}}selected{{/if}}>Afternoon</option>
+            <option {{#if (eq data.calendar.timeOfDay "Evening")}}selected{{/if}}>Evening</option>
+            <option {{#if (eq data.calendar.timeOfDay "Night")}}selected{{/if}}>Night</option>
+          </select>
+        </label>
+      </div>
+      <label class="scm-full">
+        <span>Calendar Notes</span>
+        <textarea name="calendar.notes">{{data.calendar.notes}}</textarea>
+      </label>
+    </article>
+
+    <article class="scm-panel">
+      <h2>Campaign Focus</h2>
+      <div class="scm-fields">
+        <label>
+          <span>College Lens</span>
+          <select name="focus.college">
+            {{#each colleges}}
+              <option value="{{this.key}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+            {{/each}}
+          </select>
+        </label>
+        <label>
+          <span>Current Arc</span>
+          <input type="text" name="focus.currentArc" value="{{data.focus.currentArc}}">
+        </label>
+      </div>
+      <label class="scm-full">
+        <span>Active Mystery</span>
+        <textarea name="focus.activeMystery">{{data.focus.activeMystery}}</textarea>
+      </label>
+      <div class="scm-generated">
+        <div>
+          <span>Campus Event</span>
+          <p>{{#if data.generated.event}}{{data.generated.event}}{{else}}Generate a campus event when the scene needs motion.{{/if}}</p>
+        </div>
+        <div>
+          <span>Rumor</span>
+          <p>{{#if data.generated.rumor}}{{data.generated.rumor}}{{else}}Generate a rumor when students start whispering.{{/if}}</p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="scm-grid">
+    <article class="scm-panel">
+      <header class="scm-panel-header">
+        <h2>Classes</h2>
+        <button type="button" data-action="add-row" data-collection="classes">Add Class</button>
+      </header>
+      {{#each data.classes}}
+        <div class="scm-row">
+          <input data-action="save-row" data-collection="classes" data-id="{{this.id}}" data-field="name" value="{{this.name}}" placeholder="Class">
+          <input data-action="save-row" data-collection="classes" data-id="{{this.id}}" data-field="professor" value="{{this.professor}}" placeholder="Professor">
+          <input data-action="save-row" data-collection="classes" data-id="{{this.id}}" data-field="college" value="{{this.college}}" placeholder="College">
+          <input data-action="save-row" data-collection="classes" data-id="{{this.id}}" data-field="schedule" value="{{this.schedule}}" placeholder="Schedule">
+          <input data-action="save-row" data-collection="classes" data-id="{{this.id}}" data-field="status" value="{{this.status}}" placeholder="Status">
+          <textarea data-action="save-row" data-collection="classes" data-id="{{this.id}}" data-field="notes" placeholder="Notes">{{this.notes}}</textarea>
+          <button type="button" class="icon danger" data-action="delete-row" data-collection="classes" data-id="{{this.id}}"><i class="fas fa-trash"></i></button>
+        </div>
+      {{/each}}
+    </article>
+
+    <article class="scm-panel">
+      <header class="scm-panel-header">
+        <h2>Exams & Projects</h2>
+        <button type="button" data-action="add-row" data-collection="exams">Add Exam</button>
+      </header>
+      {{#each data.exams}}
+        <div class="scm-row">
+          <input data-action="save-row" data-collection="exams" data-id="{{this.id}}" data-field="name" value="{{this.name}}" placeholder="Exam or project">
+          <input data-action="save-row" data-collection="exams" data-id="{{this.id}}" data-field="className" value="{{this.className}}" placeholder="Class">
+          <input data-action="save-row" data-collection="exams" data-id="{{this.id}}" data-field="due" value="{{this.due}}" placeholder="Due">
+          <input data-action="save-row" data-collection="exams" data-id="{{this.id}}" data-field="status" value="{{this.status}}" placeholder="Status">
+          <input data-action="save-row" data-collection="exams" data-id="{{this.id}}" data-field="stakes" value="{{this.stakes}}" placeholder="Stakes">
+          <textarea data-action="save-row" data-collection="exams" data-id="{{this.id}}" data-field="notes" placeholder="Notes">{{this.notes}}</textarea>
+          <button type="button" class="icon danger" data-action="delete-row" data-collection="exams" data-id="{{this.id}}"><i class="fas fa-trash"></i></button>
+        </div>
+      {{/each}}
+    </article>
+
+    <article class="scm-panel">
+      <header class="scm-panel-header">
+        <h2>Clubs</h2>
+        <button type="button" data-action="add-row" data-collection="clubs">Add Club</button>
+      </header>
+      {{#each data.clubs}}
+        <div class="scm-row compact">
+          <input data-action="save-row" data-collection="clubs" data-id="{{this.id}}" data-field="name" value="{{this.name}}" placeholder="Club">
+          <input data-action="save-row" data-collection="clubs" data-id="{{this.id}}" data-field="members" value="{{this.members}}" placeholder="Members">
+          <input data-action="save-row" data-collection="clubs" data-id="{{this.id}}" data-field="meeting" value="{{this.meeting}}" placeholder="Meeting">
+          <textarea data-action="save-row" data-collection="clubs" data-id="{{this.id}}" data-field="notes" placeholder="Notes">{{this.notes}}</textarea>
+          <button type="button" class="icon danger" data-action="delete-row" data-collection="clubs" data-id="{{this.id}}"><i class="fas fa-trash"></i></button>
+        </div>
+      {{/each}}
+    </article>
+
+    <article class="scm-panel">
+      <header class="scm-panel-header">
+        <h2>Relationships</h2>
+        <button type="button" data-action="add-row" data-collection="relationships">Add NPC</button>
+      </header>
+      {{#each data.relationships}}
+        <div class="scm-row relationship">
+          <input data-action="save-row" data-collection="relationships" data-id="{{this.id}}" data-field="name" value="{{this.name}}" placeholder="Name">
+          <input data-action="save-row" data-collection="relationships" data-id="{{this.id}}" data-field="role" value="{{this.role}}" placeholder="Role">
+          <input data-action="save-row" data-collection="relationships" data-id="{{this.id}}" data-field="college" value="{{this.college}}" placeholder="College">
+          <input type="number" data-action="save-row" data-collection="relationships" data-id="{{this.id}}" data-field="score" value="{{this.score}}" placeholder="Score">
+          <input data-action="save-row" data-collection="relationships" data-id="{{this.id}}" data-field="bond" value="{{this.bond}}" placeholder="Bond">
+          <textarea data-action="save-row" data-collection="relationships" data-id="{{this.id}}" data-field="notes" placeholder="Notes">{{this.notes}}</textarea>
+          <button type="button" class="icon danger" data-action="delete-row" data-collection="relationships" data-id="{{this.id}}"><i class="fas fa-trash"></i></button>
+        </div>
+      {{/each}}
+    </article>
+
+    <article class="scm-panel">
+      <header class="scm-panel-header">
+        <h2>Campaign Threads</h2>
+        <button type="button" data-action="add-row" data-collection="quests">Add Thread</button>
+      </header>
+      {{#each data.quests}}
+        <div class="scm-row compact">
+          <input data-action="save-row" data-collection="quests" data-id="{{this.id}}" data-field="title" value="{{this.title}}" placeholder="Thread">
+          <input data-action="save-row" data-collection="quests" data-id="{{this.id}}" data-field="type" value="{{this.type}}" placeholder="Type">
+          <input data-action="save-row" data-collection="quests" data-id="{{this.id}}" data-field="status" value="{{this.status}}" placeholder="Status">
+          <textarea data-action="save-row" data-collection="quests" data-id="{{this.id}}" data-field="notes" placeholder="Notes">{{this.notes}}</textarea>
+          <button type="button" class="icon danger" data-action="delete-row" data-collection="quests" data-id="{{this.id}}"><i class="fas fa-trash"></i></button>
+        </div>
+      {{/each}}
+    </article>
+  </section>
+</form>

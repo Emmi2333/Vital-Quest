@@ -1,0 +1,37 @@
+{
+  "id": "vital-quest",
+  "title": "Vital Quest",
+  "description": "A Foundry VTT campaign manager toolkit. First module: Strixhaven school-year management with calendar, classes, exams, clubs, relationships, campus events, and college notes.",
+  "version": "0.1.0",
+  "authors": [
+    {
+      "name": "reypi"
+    }
+  ],
+  "compatibility": {
+    "minimum": "12",
+    "verified": "13"
+  },
+  "relationships": {
+    "systems": [
+      {
+        "id": "dnd5e",
+        "type": "system",
+        "compatibility": {}
+      }
+    ]
+  },
+  "esmodules": [
+    "scripts/main.js"
+  ],
+  "styles": [
+    "styles/strixhaven-manager.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ]
+}
