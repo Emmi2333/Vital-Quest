@@ -1,13 +1,13 @@
 {
   "id": "vital-quest",
   "title": "Vital Quest",
-  "description": "A Foundry VTT campaign manager toolkit. First module: Strixhaven school-year management with calendar, classes, exams, clubs, relationships, campus events, and college notes.",
+  "description": "A Strixhaven campaign manager for Foundry VTT with student records, faculty, classes, exams, clubs, jobs, relationships, player-facing student cards, and Simple Calendar Reborn integration.",
   "version": "0.1.95",
   "url": "https://github.com/Emmi2333/Vital-Quest",
   "manifest": "https://github.com/Emmi2333/Vital-Quest/releases/latest/download/module.json",
   "download": "https://github.com/Emmi2333/Vital-Quest/releases/latest/download/vital-quest.zip",
-  "readme": "https://github.com/Emmi2333/Vital-Quest/blob/main/README.md",
-  "changelog": "https://github.com/Emmi2333/Vital-Quest/blob/main/CHANGELOG.md",
+  "readme": "https://raw.githubusercontent.com/Emmi2333/Vital-Quest/main/README.md",
+  "changelog": "https://raw.githubusercontent.com/Emmi2333/Vital-Quest/main/CHANGELOG.md",
   "bugs": "https://github.com/Emmi2333/Vital-Quest/issues",
   "authors": [
     {
@@ -15,10 +15,21 @@
     }
   ],
   "compatibility": {
-    "minimum": "12",
+    "minimum": "13",
     "verified": "13"
   },
   "relationships": {
+    "requires": [
+      {
+        "id": "foundryvtt-simple-calendar-reborn",
+        "type": "module",
+        "manifest": "https://github.com/Fireblight-Studios/foundryvtt-simple-calendar/releases/latest/download/module.json",
+        "compatibility": {
+          "minimum": "2.5.5",
+          "verified": "2.5.5"
+        }
+      }
+    ],
     "systems": [
       {
         "id": "dnd5e",
@@ -38,6 +49,36 @@
       "lang": "en",
       "name": "English",
       "path": "lang/en.json"
+    }
+  ],
+  "media": [
+    {
+      "type": "cover",
+      "url": "https://raw.githubusercontent.com/Emmi2333/Vital-Quest/main/assets/screenshots/vital-quest-cover.png"
+    },
+    {
+      "type": "screenshot",
+      "url": "https://raw.githubusercontent.com/Emmi2333/Vital-Quest/main/assets/screenshots/gm-overview.png"
+    },
+    {
+      "type": "screenshot",
+      "url": "https://raw.githubusercontent.com/Emmi2333/Vital-Quest/main/assets/screenshots/student-manager.png"
+    },
+    {
+      "type": "screenshot",
+      "url": "https://raw.githubusercontent.com/Emmi2333/Vital-Quest/main/assets/screenshots/exam-tracker.png"
+    },
+    {
+      "type": "screenshot",
+      "url": "https://raw.githubusercontent.com/Emmi2333/Vital-Quest/main/assets/screenshots/job-tracker.png"
+    },
+    {
+      "type": "screenshot",
+      "url": "https://raw.githubusercontent.com/Emmi2333/Vital-Quest/main/assets/screenshots/student-calendar.png"
+    },
+    {
+      "type": "screenshot",
+      "url": "https://raw.githubusercontent.com/Emmi2333/Vital-Quest/main/assets/screenshots/student-calendar-manager.png"
     }
   ]
 }

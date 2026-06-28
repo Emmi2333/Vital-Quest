@@ -3,6 +3,7 @@
 ## 0.1.95
 
 - Added screenshot assets for the package showcase page.
+- Updated package metadata and README showcase text, including Simple Calendar Reborn dependency information.
 - Allowed Vital Quest-only school events to appear in the live Simple Calendar agenda feed.
 - Made the Vital Quest graduation-cap scene control visible to players as well as GMs; permission logic opens the GM screen for GMs and the student card for players.
 
