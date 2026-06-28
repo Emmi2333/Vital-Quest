@@ -1,7 +1,7 @@
 {
   "id": "vital-quest",
   "title": "Vital Quest",
-  "description": "A Strixhaven campaign manager for Foundry VTT with student records, faculty, classes, exams, clubs, jobs, relationships, player-facing student cards, and Simple Calendar Reborn integration.",
+  "description": "Work in progress: a Strixhaven campaign manager for Foundry VTT with student records, faculty, classes, exams, clubs, jobs, relationships, player-facing student cards, and Simple Calendar Reborn integration.",
   "version": "0.1.95",
   "url": "https://github.com/Emmi2333/Vital-Quest",
   "manifest": "https://github.com/Emmi2333/Vital-Quest/releases/latest/download/module.json",

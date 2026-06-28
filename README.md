@@ -4,6 +4,8 @@
 
 **Vital Quest** is a Foundry VTT campaign manager built for running a living Strixhaven-style magical school campaign. It gives the GM a wide campaign dashboard for school life while giving players a magical student-card interface for the information relevant to their characters.
 
+> **Work in Progress:** Vital Quest is actively being developed. The current version is usable for campaign tracking and testing, but features, layouts, and data structures may continue to change between releases.
+
 Vital Quest is not a replacement for actor sheets. Character mechanics such as hit points, spells, inventory, equipment, and ability scores stay on the normal Foundry actor sheet. Vital Quest focuses on the academy around those characters: classes, exams, clubs, jobs, schedules, relationships, faculty, campus events, story arcs, and student status.
 
 ## Required Dependency
@@ -188,5 +190,4 @@ The zip should contain the module files with `module.json` at the top level.
 
 ## Status
 
-Vital Quest is in early development. The current focus is Strixhaven school-year campaign management, with future room for expanded compendiums, journal templates, NPC packs, encounter helpers, and deeper campaign automation.
-
+Vital Quest is a **work-in-progress** module in active development. The current focus is Strixhaven school-year campaign management, with future room for expanded compendiums, journal templates, NPC packs, encounter helpers, and deeper campaign automation.
