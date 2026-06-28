@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.97
+
+- Added legacy author metadata so Forge can display Emmi as the package author.
+- Expanded the manifest description so the Forge package panel shows more than the work-in-progress disclaimer.
+- Added dnd5e system relationship metadata and Actor and Item Sheets category tags.
+
 ## 0.1.96
 
 - Updated package author display name to Emmi.

@@ -1,18 +1,25 @@
 {
   "id": "vital-quest",
   "title": "Vital Quest",
-  "description": "Work in progress: a Strixhaven campaign manager for Foundry VTT with student records, faculty, classes, exams, clubs, jobs, relationships, player-facing student cards, and Simple Calendar Reborn integration.",
-  "version": "0.1.96",
+  "description": "Work in progress: Vital Quest is a Strixhaven campaign manager for Foundry VTT. It adds a GM school dashboard and player-facing student cards for student records, faculty, classes, exams, clubs, jobs, relationships, campus events, private schedules, and Simple Calendar Reborn planning.",
+  "version": "0.1.97",
   "url": "https://github.com/Emmi2333/Vital-Quest",
   "manifest": "https://github.com/Emmi2333/Vital-Quest/releases/latest/download/module.json",
   "download": "https://github.com/Emmi2333/Vital-Quest/releases/latest/download/vital-quest.zip",
   "readme": "https://raw.githubusercontent.com/Emmi2333/Vital-Quest/main/README.md",
   "changelog": "https://raw.githubusercontent.com/Emmi2333/Vital-Quest/main/CHANGELOG.md",
   "bugs": "https://github.com/Emmi2333/Vital-Quest/issues",
+  "author": "Emmi",
   "authors": [
     {
       "name": "Emmi"
     }
+  ],
+  "tags": [
+    "actor-and-item-sheets"
+  ],
+  "categories": [
+    "actor-and-item-sheets"
   ],
   "compatibility": {
     "minimum": "13",
@@ -34,7 +41,11 @@
       {
         "id": "dnd5e",
         "type": "system",
-        "compatibility": {}
+        "manifest": "https://github.com/foundryvtt/dnd5e/releases/latest/download/system.json",
+        "compatibility": {
+          "minimum": "5.0.0",
+          "verified": "5.0.4"
+        }
       }
     ]
   },
