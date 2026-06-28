@@ -1,183 +1,1754 @@
-<form class="scm-shell">
-  <section class="scm-hero">
-    <div>
-      <p class="scm-kicker">Vital Quest · Strixhaven Manager</p>
-      <h1>{{data.calendar.term}} · Week {{data.calendar.week}}</h1>
-      <p>{{data.calendar.day}} · {{data.calendar.timeOfDay}}</p>
+<form class="scm-shell gm-screen college-{{collegeKey}}">
+  <header class="gm-topbar">
+    <div class="gm-brand-lockup">
+      <div class="gm-brand-mark">
+        <i class="fas fa-gem"></i>
+      </div>
+      <div>
+        <p class="scm-kicker">Vital Quest</p>
+        <h1>Strixhaven Game Master Screen</h1>
+        <span class="gm-subtitle">Campaign command crystal for school life, schedules, records, and secrets</span>
+      </div>
     </div>
-    <div class="scm-college-card">
-      <span>{{college.label}}</span>
-      <strong>{{college.theme}}</strong>
-      <p>{{college.description}}</p>
+    <div class="gm-topbar-actions">
+      <span class="gm-save-hint">World records update when saved</span>
+      <button type="button" data-action="save-all-changes"><i class="fas fa-save"></i> Save Changes</button>
     </div>
-  </section>
+  </header>
 
-  <nav class="scm-actions">
-    <button type="button" data-action="save-overview"><i class="fas fa-save"></i> Save Overview</button>
-    <button type="button" data-action="advance-day"><i class="fas fa-sun"></i> Advance Day</button>
-    <button type="button" data-action="generate-event"><i class="fas fa-wand-sparkles"></i> Campus Event</button>
-    <button type="button" data-action="generate-rumor"><i class="fas fa-comment-dots"></i> Rumor</button>
-    <button type="button" class="danger" data-action="reset-manager"><i class="fas fa-rotate-left"></i> Reset</button>
+  <nav class="gm-tabs" aria-label="GM screen sections">
+    <button type="button" class="{{#if activeTabs.overview}}active{{/if}}" data-gm-tab="overview"><i class="fas fa-home"></i><span>Overview</span></button>
+    <button type="button" class="{{#if activeTabs.students}}active{{/if}}" data-gm-tab="students"><i class="fas fa-user-graduate"></i><span>Students</span></button>
+    <button type="button" class="{{#if activeTabs.faculty}}active{{/if}}" data-gm-tab="faculty"><i class="fas fa-chalkboard-teacher"></i><span>Faculty</span></button>
+    <button type="button" class="{{#if activeTabs.classes}}active{{/if}}" data-gm-tab="classes"><i class="fas fa-book-open"></i><span>Classes</span></button>
+    <button type="button" class="{{#if activeTabs.exams}}active{{/if}}" data-gm-tab="exams"><i class="fas fa-scroll"></i><span>Exams</span></button>
+    <button type="button" class="{{#if activeTabs.clubs}}active{{/if}}" data-gm-tab="clubs"><i class="fas fa-users"></i><span>Clubs</span></button>
+    <button type="button" class="{{#if activeTabs.jobs}}active{{/if}}" data-gm-tab="jobs"><i class="fas fa-briefcase"></i><span>Jobs</span></button>
+    <button type="button" class="{{#if activeTabs.campus}}active{{/if}}" data-gm-tab="campus"><i class="fas fa-map-marker-alt"></i><span>Campus</span></button>
+    <button type="button" class="{{#if activeTabs.calendar}}active{{/if}}" data-gm-tab="calendar"><i class="fas fa-calendar-alt"></i><span>Calendar</span></button>
+    <button type="button" class="{{#if activeTabs.story}}active{{/if}}" data-gm-tab="story"><i class="fas fa-feather-alt"></i><span>Story</span></button>
+    <button type="button" class="{{#if activeTabs.tools}}active{{/if}}" data-gm-tab="tools"><i class="fas fa-tools"></i><span>Tools</span></button>
   </nav>
 
-  <section class="scm-grid two">
-    <article class="scm-panel">
-      <h2>School Clock</h2>
-      <div class="scm-fields">
-        <label>
-          <span>Term</span>
-          <input type="text" name="calendar.term" value="{{data.calendar.term}}">
-        </label>
-        <label>
-          <span>Week</span>
-          <input type="number" min="1" name="calendar.week" value="{{data.calendar.week}}">
-        </label>
-        <label>
-          <span>Day</span>
-          <select name="calendar.day">
-            <option {{#if (eq data.calendar.day "Moonday")}}selected{{/if}}>Moonday</option>
-            <option {{#if (eq data.calendar.day "Toilsday")}}selected{{/if}}>Toilsday</option>
-            <option {{#if (eq data.calendar.day "Wandsday")}}selected{{/if}}>Wandsday</option>
-            <option {{#if (eq data.calendar.day "Thelsday")}}selected{{/if}}>Thelsday</option>
-            <option {{#if (eq data.calendar.day "Fryday")}}selected{{/if}}>Fryday</option>
-            <option {{#if (eq data.calendar.day "Standday")}}selected{{/if}}>Standday</option>
-            <option {{#if (eq data.calendar.day "Sunsday")}}selected{{/if}}>Sunsday</option>
-          </select>
-        </label>
-        <label>
-          <span>Time of Day</span>
-          <select name="calendar.timeOfDay">
-            <option {{#if (eq data.calendar.timeOfDay "Morning")}}selected{{/if}}>Morning</option>
-            <option {{#if (eq data.calendar.timeOfDay "Afternoon")}}selected{{/if}}>Afternoon</option>
-            <option {{#if (eq data.calendar.timeOfDay "Evening")}}selected{{/if}}>Evening</option>
-            <option {{#if (eq data.calendar.timeOfDay "Night")}}selected{{/if}}>Night</option>
-          </select>
-        </label>
-      </div>
-      <label class="scm-full">
-        <span>Calendar Notes</span>
-        <textarea name="calendar.notes">{{data.calendar.notes}}</textarea>
-      </label>
-    </article>
+  <main class="gm-tab-screen">
+    <section class="gm-tab-page {{#if activeTabs.overview}}active{{/if}}" data-gm-page="overview">
+      <section class="overview-command">
+        <article class="gm-panel overview-clock-card">
+          <header class="gm-panel-header">
+            <div>
+              <span class="section-label">School Clock</span>
+              <h2>{{data.calendar.day}}</h2>
+              <p>{{#if data.calendar.dateLabel}}{{data.calendar.dateLabel}}{{else}}{{data.calendar.term}} &middot; Week {{data.calendar.week}}{{/if}}</p>
+            </div>
+            <button type="button" data-action="advance-day"><i class="fas fa-sun"></i> Advance Day</button>
+          </header>
+          <div class="clock-face">
+            <strong>{{data.calendar.timeOfDay}}</strong>
+            <span>{{data.calendar.source}}</span>
+          </div>
+          <div class="gm-form-grid four overview-clock-edit">
+            <label><span>Term</span><input type="text" name="calendar.term" value="{{data.calendar.term}}"></label>
+            <label><span>Week</span><input type="number" min="1" name="calendar.week" value="{{data.calendar.week}}"></label>
+            <label>
+              <span>Fallback Day</span>
+              <select name="calendar.day">
+                <option {{#if (eq data.calendar.day "Moonday")}}selected{{/if}}>Moonday</option>
+                <option {{#if (eq data.calendar.day "Toilsday")}}selected{{/if}}>Toilsday</option>
+                <option {{#if (eq data.calendar.day "Wandsday")}}selected{{/if}}>Wandsday</option>
+                <option {{#if (eq data.calendar.day "Thelsday")}}selected{{/if}}>Thelsday</option>
+                <option {{#if (eq data.calendar.day "Fryday")}}selected{{/if}}>Fryday</option>
+                <option {{#if (eq data.calendar.day "Standday")}}selected{{/if}}>Standday</option>
+                <option {{#if (eq data.calendar.day "Sunsday")}}selected{{/if}}>Sunsday</option>
+              </select>
+            </label>
+            <label>
+              <span>Fallback Time</span>
+              <select name="calendar.timeOfDay">
+                <option {{#if (eq data.calendar.timeOfDay "Morning")}}selected{{/if}}>Morning</option>
+                <option {{#if (eq data.calendar.timeOfDay "Afternoon")}}selected{{/if}}>Afternoon</option>
+                <option {{#if (eq data.calendar.timeOfDay "Evening")}}selected{{/if}}>Evening</option>
+                <option {{#if (eq data.calendar.timeOfDay "Night")}}selected{{/if}}>Night</option>
+              </select>
+            </label>
+          </div>
+        </article>
 
-    <article class="scm-panel">
-      <h2>Campaign Focus</h2>
-      <div class="scm-fields">
-        <label>
-          <span>College Lens</span>
-          <select name="focus.college">
-            {{#each colleges}}
-              <option value="{{this.key}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+        <article class="gm-panel overview-director-card">
+          <span class="section-label">Campaign Lens</span>
+          <h2>{{data.focus.currentArc}}</h2>
+          <div class="gm-form-grid two">
+            <label>
+              <span>College Theme</span>
+              <select name="focus.college">
+                {{#each colleges}}
+                  <option value="{{this.key}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                {{/each}}
+              </select>
+            </label>
+            <label><span>Current Arc</span><input type="text" name="focus.currentArc" value="{{data.focus.currentArc}}"></label>
+          </div>
+          <label><span>Active Mystery</span><textarea name="focus.activeMystery">{{data.focus.activeMystery}}</textarea></label>
+          <label><span>Public Notes for Today</span><textarea name="calendar.notes">{{data.calendar.notes}}</textarea></label>
+        </article>
+      </section>
+
+      <section class="gm-stat-strip overview-stat-strip">
+        <div><span>Students</span><strong>{{overviewSummary.studentsTotal}}</strong><small>{{overviewSummary.playerCount}} players &middot; {{overviewSummary.npcCount}} NPCs</small></div>
+        <div><span>Classes</span><strong>{{overviewSummary.classCount}}</strong><small>Active course records</small></div>
+        <div><span>Exams</span><strong>{{overviewSummary.examCount}}</strong><small>Open exams/projects</small></div>
+        <div><span>Campus Life</span><strong>{{overviewSummary.clubCount}} / {{overviewSummary.jobCount}}</strong><small>clubs with members / active jobs</small></div>
+      </section>
+
+      <section class="overview-grid">
+        <article class="gm-panel overview-schedule-panel">
+          <header class="agenda-header">
+            <div>
+              <span class="section-label">Live Schedule</span>
+              <h3>Today & Next Bell</h3>
+            </div>
+            <small>{{livingSchedule.source}}</small>
+          </header>
+          <div class="agenda-list">
+            {{#each livingSchedule.upcoming}}
+              <article class="agenda-item">
+                <i class="fas {{this.icon}}"></i>
+                <div><strong>{{this.title}}</strong><span>{{this.subtitle}}</span><small>{{this.source}}</small></div>
+                <em>{{this.status}}</em>
+              </article>
+            {{else}}
+              <div class="gm-callout"><p>No upcoming schedule items found. Add classes, exams, clubs, jobs, or story beats to the Calendar tab.</p></div>
             {{/each}}
-          </select>
-        </label>
-        <label>
-          <span>Current Arc</span>
-          <input type="text" name="focus.currentArc" value="{{data.focus.currentArc}}">
-        </label>
+          </div>
+        </article>
+
+        <article class="gm-panel overview-alert-panel">
+          <span class="section-label">DM Alerts</span>
+          <h2>Attention Queue</h2>
+          <div class="overview-alert-list">
+            {{#each overviewSummary.alerts}}
+              <div><i class="fas fa-wand-sparkles"></i><span>{{this}}</span></div>
+            {{/each}}
+          </div>
+          <div class="overview-prompt-grid">
+            <section><strong>Campus Event</strong><p>{{#if data.generated.event}}{{data.generated.event}}{{else}}No event generated yet.{{/if}}</p></section>
+            <section><strong>Rumor</strong><p>{{#if data.generated.rumor}}{{data.generated.rumor}}{{else}}No rumor generated yet.{{/if}}</p></section>
+          </div>
+        </article>
+      </section>
+
+      <section class="gm-panel overview-student-feed">
+        <header class="gm-panel-header">
+          <div>
+            <span class="section-label">Student Card Feed</span>
+            <h2>School Life Snapshot</h2>
+          </div>
+          <small>{{overviewSummary.employedCount}} employed &middot; {{overviewSummary.clubMemberCount}} in clubs &middot; {{overviewSummary.watchedCount}} watched</small>
+        </header>
+        <div class="overview-feed-sections">
+          <section>
+            <div class="overview-feed-heading">
+              <span>Player Characters</span>
+              <small>{{overviewSummary.playerCount}} tracked</small>
+            </div>
+            <div class="overview-student-card-grid">
+              {{#each overviewSummary.playerFeed}}
+                <article class="overview-student-card player">
+                  <header>
+                    <strong>{{this.name}}</strong>
+                    <span>{{this.standing}}</span>
+                  </header>
+                  <p>{{this.detailLine}}</p>
+                  <footer>
+                    <small>Standing {{this.standingScore}}</small>
+                    <button type="button" data-action="select-student" data-id="{{this.id}}">Open</button>
+                  </footer>
+                </article>
+              {{else}}
+                <div class="gm-callout"><p>No player character student records yet.</p></div>
+              {{/each}}
+            </div>
+          </section>
+          <section>
+            <div class="overview-feed-heading">
+              <span>Student NPCs</span>
+              <small>{{overviewSummary.npcCount}} tracked</small>
+            </div>
+            <div class="overview-student-card-grid">
+              {{#each overviewSummary.npcFeed}}
+                <article class="overview-student-card npc">
+                  <header>
+                    <strong>{{this.name}}</strong>
+                    <span>{{this.standing}}</span>
+                  </header>
+                  <p>{{this.detailLine}}</p>
+                  <footer>
+                    <small>Standing {{this.standingScore}}</small>
+                    <button type="button" data-action="select-student" data-id="{{this.id}}">Open</button>
+                  </footer>
+                </article>
+              {{else}}
+                <div class="gm-callout"><p>No student NPC records yet.</p></div>
+              {{/each}}
+            </div>
+          </section>
+        </div>
+      </section>
+    </section>
+
+    <section class="gm-tab-page {{#if activeTabs.students}}active{{/if}}" data-gm-page="students">
+      <section class="student-manager student-command-center">
+        <aside class="student-roster student-directory gm-panel">
+          <header class="student-directory-header">
+            <div>
+              <span class="section-label">Student Records</span>
+              <h2>Roster</h2>
+            </div>
+            <button type="button" data-action="add-student"><i class="fas fa-user-plus"></i> Add</button>
+          </header>
+
+          <div class="student-roster-stats">
+            <div><strong>{{studentStats.totalCount}}</strong><span>Total</span></div>
+            <div><strong>{{studentStats.playerCount}}</strong><span>PCs</span></div>
+            <div><strong>{{studentStats.npcCount}}</strong><span>Students</span></div>
+          </div>
+
+          <label class="student-search-wrap">
+            <span>Search records</span>
+            <input class="student-search" type="search" value="{{studentSearch}}" placeholder="Name, college, standing..." data-action="student-search">
+          </label>
+
+          <div class="student-folder-heading">
+            <i class="fas fa-folder-open"></i>
+            <span>Player Characters</span>
+          </div>
+          <div class="student-roster-list">
+            {{#each playerStudents}}
+              <button type="button" class="student-roster-card {{#if this.selected}}active{{/if}}" data-action="select-student" data-id="{{this.id}}" data-search="{{this.name}} {{this.player}} {{this.college}} {{this.year}} {{this.academicStanding}} {{this.reputation}} {{this.actorName}}">
+                {{#if this.img}}<img src="{{this.img}}" alt="{{this.name}}">{{/if}}
+                <div>
+                  <strong>{{this.name}}</strong>
+                  <span>{{this.player}}</span>
+                  <small>{{this.college}} &middot; {{this.academicStanding}}</small>
+                </div>
+              </button>
+            {{else}}
+              <p class="gm-muted">No player character records found.</p>
+            {{/each}}
+          </div>
+
+          <div class="student-folder-heading">
+            <i class="fas fa-folder-tree"></i>
+            <span>Students by College</span>
+          </div>
+          {{#each studentCollegeGroups}}
+            <details class="student-college-group" open>
+              <summary>{{this.name}} <span>{{this.students.length}}</span></summary>
+              <div class="student-roster-list">
+                {{#each this.students}}
+                  <button type="button" class="student-roster-card {{#if this.selected}}active{{/if}}" data-action="select-student" data-id="{{this.id}}" data-search="{{this.name}} {{this.player}} {{this.college}} {{this.year}} {{this.academicStanding}} {{this.reputation}} {{this.actorName}}">
+                    {{#if this.img}}<img src="{{this.img}}" alt="{{this.name}}">{{/if}}
+                    <div>
+                      <strong>{{this.name}}</strong>
+                      <span>{{this.college}} &middot; {{this.year}}</span>
+                      <small>{{this.academicStanding}} &middot; {{this.academicStandingScore}}</small>
+                    </div>
+                  </button>
+                {{/each}}
+              </div>
+            </details>
+          {{else}}
+            <p class="gm-muted">No student NPCs are enrolled yet.</p>
+          {{/each}}
+        </aside>
+
+        {{#if selectedStudent}}
+          <section class="student-profile student-dossier">
+            <article class="student-dossier-hero gm-panel">
+              <div class="student-portrait">
+                {{#if selectedStudent.img}}<img src="{{selectedStudent.img}}" alt="{{selectedStudent.name}}">{{else}}<i class="fas fa-user-graduate"></i>{{/if}}
+              </div>
+              <div class="student-title-block">
+                <span class="section-label">{{#if selectedStudent.hasActor}}Linked Actor Record{{else}}VQ School Record{{/if}}</span>
+                <h2>{{selectedStudent.name}}</h2>
+                <p>{{selectedStudent.college}} &middot; {{selectedStudent.year}} &middot; {{selectedStudent.academicStanding}}</p>
+                <div class="student-tag-strip">
+                  <span>{{#if selectedStudent.hasActor}}Actor linked{{else}}No actor linked{{/if}}</span>
+                  <span>Standing {{selectedStudent.academicStandingScore}}</span>
+                  <span>{{selectedStudent.reputation}}</span>
+                </div>
+              </div>
+              <div class="student-profile-actions">
+                <button type="button" data-action="open-actor" data-actor-id="{{selectedStudent.actorId}}"><i class="fas fa-user"></i> Actor Sheet</button>
+              </div>
+            </article>
+
+            <header class="student-memory-title">
+              <div>
+                <span class="section-label">Strixhaven Memories</span>
+                <h2>Student Record Sheet</h2>
+              </div>
+              <small>School-life tracking only. Actor sheet remains the source for mechanics.</small>
+            </header>
+
+            <section class="student-dossier-grid">
+              <article class="gm-panel student-section-wide memory-panel memory-identity">
+                <header class="student-section-header">
+                  <div>
+                    <span class="section-label">Enrollment</span>
+                    <h2>Identity & Placement</h2>
+                  </div>
+                  <small>Journal route: {{selectedJournalRoute}}</small>
+                </header>
+                <div class="gm-form-grid three">
+                  <label><span>Name</span><input data-action="save-student" data-id="{{selectedStudent.id}}" data-actor-id="{{selectedStudent.actorId}}" data-field="name" value="{{selectedStudent.name}}" {{#if selectedStudent.hasActor}}readonly{{/if}}></label>
+                  <label><span>Player</span><input data-action="save-student" data-id="{{selectedStudent.id}}" data-actor-id="{{selectedStudent.actorId}}" data-field="player" value="{{selectedStudent.player}}" {{#if selectedStudent.hasActor}}readonly{{/if}}></label>
+                  <label><span>College</span>
+                    <select data-action="save-student" data-id="{{selectedStudent.id}}" data-actor-id="{{selectedStudent.actorId}}" data-field="college">
+                      {{#each selectedCollegeOptions}}
+                        <option value="{{this.label}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                      {{/each}}
+                    </select>
+                  </label>
+                  <label><span>Year</span>
+                    <select data-action="save-student" data-id="{{selectedStudent.id}}" data-actor-id="{{selectedStudent.actorId}}" data-field="year">
+                      {{#each selectedYearOptions}}
+                        <option value="{{this.label}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                      {{/each}}
+                    </select>
+                  </label>
+                  <label><span>Dorm Name</span><input data-action="save-student" data-id="{{selectedStudent.id}}" data-actor-id="{{selectedStudent.actorId}}" data-field="dormName" value="{{selectedStudent.dormName}}" placeholder="Dormitory, hall, or residence"></label>
+                  <label><span>Dorm Number</span><input data-action="save-student" data-id="{{selectedStudent.id}}" data-actor-id="{{selectedStudent.actorId}}" data-field="dorm" value="{{selectedStudent.dorm}}" placeholder="Room or dorm number"></label>
+                  <label class="faculty-picker-field"><span>Faculty Advisor</span>
+                    <select data-action="save-student" data-id="{{selectedStudent.id}}" data-actor-id="{{selectedStudent.actorId}}" data-field="advisorFacultyId">
+                      {{#each selectedAdvisorOptions}}
+                        <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                      {{/each}}
+                    </select>
+                  </label>
+                </div>
+                <p class="gm-muted">Hit points, spells, inventory, equipment, and ability scores stay on the Foundry actor sheet.</p>
+              </article>
+
+              <article class="gm-panel memory-panel memory-report-card">
+                <span class="section-label">Report Card</span>
+                <h2>Academic Progress</h2>
+                <div class="student-mini-stats two">
+                  <label><span>Standing Score</span><input type="number" min="-100" max="100" data-action="save-student" data-id="{{selectedStudent.id}}" data-actor-id="{{selectedStudent.actorId}}" data-field="academicStandingScore" value="{{selectedStudent.academicStandingScore}}"></label>
+                  <label><span>Standing Level</span><input value="{{selectedStudent.academicStanding}}" readonly></label>
+                </div>
+                <div class="student-class-picker">
+                  <span>Current Classes</span>
+                  {{#each selectedClassOptions}}
+                    <label class="student-class-option">
+                      <input type="checkbox" data-action="toggle-student-class" data-student-id="{{../selectedStudent.id}}" data-class-id="{{this.id}}" {{#if this.selected}}checked{{/if}}>
+                      <strong>{{this.name}}</strong>
+                      <small>{{#if this.professorName}}{{this.professorName}}{{else}}No professor assigned{{/if}}</small>
+                    </label>
+                  {{else}}
+                    <p class="gm-muted">No classes have been added yet. Add classes from the Classes tab.</p>
+                  {{/each}}
+                </div>
+                <label><span>Homework</span><textarea data-action="save-student" data-id="{{selectedStudent.id}}" data-actor-id="{{selectedStudent.actorId}}" data-field="homework">{{selectedStudent.homework}}</textarea></label>
+              </article>
+
+              <article class="gm-panel memory-panel memory-student-dice">
+                <span class="section-label">Student Dice</span>
+                <h2>Earned d4 Skills</h2>
+                <div class="student-dice-list">
+                  {{#each selectedStudentDice}}
+                    <div>
+                      <strong>{{this.skill}}</strong>
+                      <span>{{this.dice}}</span>
+                      <small>{{this.count}} source{{#unless (eq this.count 1)}}s{{/unless}}</small>
+                    </div>
+                  {{else}}
+                    <p class="gm-muted">No Student Dice earned yet. Clubs and passed exams add skill d4s here.</p>
+                  {{/each}}
+                </div>
+              </article>
+
+              <article class="gm-panel memory-panel memory-schedule">
+                <span class="section-label">Schedule</span>
+                <h2>Campus Life</h2>
+                <label><span>Daily Schedule</span><textarea data-action="save-student" data-id="{{selectedStudent.id}}" data-actor-id="{{selectedStudent.actorId}}" data-field="dailySchedule">{{selectedStudent.dailySchedule}}</textarea></label>
+                <label><span>Active School Events</span><textarea data-action="save-student" data-id="{{selectedStudent.id}}" data-actor-id="{{selectedStudent.actorId}}" data-field="activeEvents">{{selectedStudent.activeEvents}}</textarea></label>
+              </article>
+
+              <article class="gm-panel memory-panel memory-campus-life">
+                <span class="section-label">Extracurriculars & Job</span>
+                <h2>Campus Commitments</h2>
+                <div class="commitment-list">
+                  {{#each selectedCampusCommitments}}
+                    <article>
+                      <i class="fas {{this.icon}}"></i>
+                      <div>
+                        <strong>{{this.name}}</strong>
+                        <span>{{this.type}} &middot; {{this.detail}}</span>
+                        <small>{{this.note}}</small>
+                      </div>
+                    </article>
+                  {{else}}
+                    <p class="gm-muted">No clubs or jobs assigned. Use the Clubs and Jobs tabs to enroll this student.</p>
+                  {{/each}}
+                </div>
+                <label><span>Leadership</span><textarea data-action="save-student" data-id="{{selectedStudent.id}}" data-actor-id="{{selectedStudent.actorId}}" data-field="leadership">{{selectedStudent.leadership}}</textarea></label>
+                <label><span>Reputation</span><input data-action="save-student" data-id="{{selectedStudent.id}}" data-actor-id="{{selectedStudent.actorId}}" data-field="reputation" value="{{selectedStudent.reputation}}"></label>
+              </article>
+
+              <article class="gm-panel memory-panel memory-conduct">
+                <span class="section-label">Conduct</span>
+                <h2>Discipline</h2>
+                <label><span>Disciplinary Record</span><textarea data-action="save-student" data-id="{{selectedStudent.id}}" data-actor-id="{{selectedStudent.actorId}}" data-field="discipline">{{selectedStudent.discipline}}</textarea></label>
+              </article>
+
+              <article class="gm-panel student-section-wide memory-panel memory-relationships">
+                <header class="student-section-header">
+                  <div>
+                    <span class="section-label">Relationships</span>
+                    <h2>Linked Sheets & Social Standing</h2>
+                  </div>
+                  <button type="button" data-action="add-relationship" data-student-id="{{selectedStudent.id}}"><i class="fas fa-link"></i> Add Link</button>
+                </header>
+                <p class="gm-muted">Link this student to player or NPC Actor sheets. Scores can be used for friend, beloved, rival, or enemy style tracking.</p>
+                <div class="relationship-link-list">
+                  {{#each selectedRelationshipLinks}}
+                    <div class="relationship-link-row" data-relationship-row="{{this.id}}">
+                      <div class="relationship-link-target">
+                        {{#if this.targetImg}}<img src="{{this.targetImg}}" alt="{{this.targetName}}">{{else}}<i class="fas fa-user"></i>{{/if}}
+                        <strong>{{this.targetName}}</strong>
+                      </div>
+                      <label>
+                        <span>Linked Sheet</span>
+                        <select data-action="save-relationship" data-student-id="{{../selectedStudent.id}}" data-relationship-id="{{this.id}}" data-field="targetActorId">
+                          <option value="">Choose actor...</option>
+                          {{#each this.actorOptions}}
+                            <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+                          {{/each}}
+                        </select>
+                      </label>
+                      <label>
+                        <span>Score</span>
+                        <input type="number" data-action="save-relationship" data-student-id="{{../selectedStudent.id}}" data-relationship-id="{{this.id}}" data-field="score" value="{{this.score}}" data-relationship-score="{{this.id}}">
+                      </label>
+                      <label class="relationship-point-adjuster">
+                        <span>Adjust Points</span>
+                        <div>
+                          <button type="button" data-action="adjust-relationship-score" data-student-id="{{../selectedStudent.id}}" data-relationship-id="{{this.id}}" data-direction="-1">−</button>
+                          <input type="number" min="0" step="1" value="1" data-relationship-adjust="{{this.id}}">
+                          <button type="button" data-action="adjust-relationship-score" data-student-id="{{../selectedStudent.id}}" data-relationship-id="{{this.id}}" data-direction="1">+</button>
+                        </div>
+                      </label>
+                      <label>
+                        <span>Status</span>
+                        <input data-action="save-relationship" data-student-id="{{../selectedStudent.id}}" data-relationship-id="{{this.id}}" data-field="status" value="{{this.status}}" data-relationship-status="{{this.id}}">
+                      </label>
+                      <label class="relationship-notes">
+                        <span>Notes</span>
+                        <textarea data-action="save-relationship" data-student-id="{{../selectedStudent.id}}" data-relationship-id="{{this.id}}" data-field="notes">{{this.notes}}</textarea>
+                      </label>
+                      <div class="relationship-actions">
+                        <button type="button" data-action="open-actor" data-actor-id="{{this.targetActorId}}" {{#unless this.hasTarget}}disabled{{/unless}}><i class="fas fa-user"></i></button>
+                        <button type="button" class="danger" data-action="delete-relationship" data-student-id="{{../selectedStudent.id}}" data-relationship-id="{{this.id}}"><i class="fas fa-trash"></i></button>
+                      </div>
+                    </div>
+                  {{else}}
+                    <div class="gm-callout">
+                      <p>No linked relationships yet. Add a link to connect this student to another character or NPC sheet.</p>
+                    </div>
+                  {{/each}}
+                </div>
+                <label><span>General Relationship Notes</span><textarea data-action="save-student" data-id="{{selectedStudent.id}}" data-actor-id="{{selectedStudent.actorId}}" data-field="relationships">{{selectedStudent.relationships}}</textarea></label>
+              </article>
+
+              <article class="gm-panel student-section-wide memory-panel memory-notes">
+                <span class="section-label">DM Progression</span>
+                <h2>Semester Notes & Graduation Track</h2>
+                <div class="gm-form-grid three">
+                  <label><span>Achievements</span><textarea data-action="save-student" data-id="{{selectedStudent.id}}" data-actor-id="{{selectedStudent.actorId}}" data-field="achievements">{{selectedStudent.achievements}}</textarea></label>
+                  <label><span>Long-Term Progress</span><textarea data-action="save-student" data-id="{{selectedStudent.id}}" data-actor-id="{{selectedStudent.actorId}}" data-field="semesterProgress">{{selectedStudent.semesterProgress}}</textarea></label>
+                  <label><span>Private DM Notes</span><textarea data-action="save-student" data-id="{{selectedStudent.id}}" data-actor-id="{{selectedStudent.actorId}}" data-field="privateNotes">{{selectedStudent.privateNotes}}</textarea></label>
+                </div>
+              </article>
+            </section>
+          </section>
+        {{else}}
+          <article class="gm-panel student-empty-state">
+            <h2>No student selected</h2>
+            <p>Add a student or sync the Journal archive to begin tracking school status.</p>
+          </article>
+        {{/if}}
+      </section>
+    </section>
+
+    <section class="gm-tab-page {{#if activeTabs.faculty}}active{{/if}}" data-gm-page="faculty">
+      <section class="faculty-manager">
+        <aside class="gm-panel faculty-roster">
+          <header class="student-directory-header">
+            <div>
+              <span class="section-label">Faculty</span>
+              <h2>Staff Directory</h2>
+            </div>
+            <button type="button" data-action="add-faculty"><i class="fas fa-user-tie"></i> Add</button>
+          </header>
+          <div class="student-roster-stats">
+            <div><strong>{{facultyDirectory.length}}</strong><span>Total</span></div>
+            <div><strong>{{facultyCollegeGroups.length}}</strong><span>Groups</span></div>
+            <div><strong>{{data.classes.length}}</strong><span>Classes</span></div>
+          </div>
+          {{#each facultyCollegeGroups}}
+            <details class="student-college-group faculty-college-group" open>
+              <summary>{{this.name}} <span>{{this.faculty.length}}</span></summary>
+              <div class="student-roster-list">
+                {{#each this.faculty}}
+                  <button type="button" class="student-roster-card faculty-roster-card {{#if this.selected}}active{{/if}}" data-action="select-faculty" data-id="{{this.id}}">
+                    {{#if this.img}}<img src="{{this.img}}" alt="{{this.displayName}}">{{else}}<i class="fas fa-user-tie"></i>{{/if}}
+                    <div>
+                      <strong>{{this.displayName}}</strong>
+                      <span>{{this.roleLabel}}</span>
+                      <small>{{this.collegeLabel}} &middot; {{this.statusLabel}}</small>
+                    </div>
+                  </button>
+                {{/each}}
+              </div>
+            </details>
+          {{else}}
+            <p class="gm-muted">No faculty records yet. Create a faculty NPC to begin.</p>
+          {{/each}}
+        </aside>
+
+        {{#if selectedFaculty}}
+          <section class="faculty-profile">
+            <article class="student-dossier-hero gm-panel faculty-dossier-hero">
+              <div class="student-portrait">
+                {{#if selectedFaculty.img}}<img src="{{selectedFaculty.img}}" alt="{{selectedFaculty.displayName}}">{{else}}<i class="fas fa-user-tie"></i>{{/if}}
+              </div>
+              <div class="student-title-block">
+                <span class="section-label">{{#if selectedFaculty.hasActor}}Linked Actor Record{{else}}VQ Faculty Record{{/if}}</span>
+                <h2>{{selectedFaculty.displayName}}</h2>
+                <p>{{selectedFaculty.roleLabel}} &middot; {{selectedFaculty.collegeLabel}} &middot; {{selectedFaculty.statusLabel}}</p>
+                <div class="student-tag-strip">
+                  <span>{{#if selectedFaculty.hasActor}}Actor linked{{else}}No actor linked{{/if}}</span>
+                  <span>{{selectedFaculty.office}}</span>
+                  <span>{{selectedFaculty.schedule}}</span>
+                </div>
+              </div>
+              <div class="student-profile-actions">
+                <button type="button" data-action="open-actor" data-actor-id="{{selectedFaculty.actorId}}" {{#unless selectedFaculty.hasActor}}disabled{{/unless}}><i class="fas fa-user"></i> Actor Sheet</button>
+                <button type="button" class="danger" data-action="delete-row" data-collection="faculty" data-id="{{selectedFaculty.id}}"><i class="fas fa-trash"></i> Remove</button>
+              </div>
+            </article>
+
+            <section class="student-dossier-grid faculty-dossier-grid">
+              <article class="gm-panel student-section-wide memory-panel">
+                <header class="student-section-header">
+                  <div>
+                    <span class="section-label">Faculty Record</span>
+                    <h2>Identity & Assignment</h2>
+                  </div>
+                  <small>Actor sheet remains the source for mechanics.</small>
+                </header>
+                <div class="gm-form-grid three">
+                  <label><span>Name</span><input data-action="save-row" data-collection="faculty" data-id="{{selectedFaculty.id}}" data-field="name" value="{{selectedFaculty.name}}" placeholder="Faculty name"></label>
+                  <label><span>Role</span>
+                    <select data-action="save-row" data-collection="faculty" data-id="{{selectedFaculty.id}}" data-field="role">
+                      {{#each selectedFaculty.roleOptions}}
+                        <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                      {{/each}}
+                    </select>
+                  </label>
+                  <label><span>College / Department</span>
+                    <select data-action="save-row" data-collection="faculty" data-id="{{selectedFaculty.id}}" data-field="college">
+                      {{#each selectedFaculty.departmentOptions}}
+                        <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                      {{/each}}
+                    </select>
+                  </label>
+                  <label><span>Office</span><input data-action="save-row" data-collection="faculty" data-id="{{selectedFaculty.id}}" data-field="office" value="{{selectedFaculty.office}}" placeholder="Office, classroom, or department"></label>
+                  <label><span>Schedule</span><input data-action="save-row" data-collection="faculty" data-id="{{selectedFaculty.id}}" data-field="schedule" value="{{selectedFaculty.schedule}}" placeholder="Office hours, class rhythm, patrols"></label>
+                  <label><span>Status</span><input data-action="save-row" data-collection="faculty" data-id="{{selectedFaculty.id}}" data-field="status" value="{{selectedFaculty.status}}" placeholder="Available"></label>
+                  <label class="student-section-wide"><span>Linked Actor ID</span><input data-action="save-row" data-collection="faculty" data-id="{{selectedFaculty.id}}" data-field="actorId" value="{{selectedFaculty.actorId}}" placeholder="Foundry Actor ID"></label>
+                </div>
+              </article>
+              <article class="gm-panel student-section-wide memory-panel">
+                <span class="section-label">DM Notes</span>
+                <h2>Teaching Style, Secrets & Hooks</h2>
+                <label><span>Notes</span><textarea data-action="save-row" data-collection="faculty" data-id="{{selectedFaculty.id}}" data-field="notes" placeholder="Teaching style, secrets, office hours, event hooks...">{{selectedFaculty.notes}}</textarea></label>
+              </article>
+            </section>
+          </section>
+        {{else}}
+          <article class="gm-panel student-empty-state">
+            <h2>No faculty selected</h2>
+            <p>Create a faculty NPC or sync the Journal archive to begin.</p>
+          </article>
+        {{/if}}
+      </section>
+    </section>
+
+    <section class="gm-tab-page {{#if activeTabs.classes}}active{{/if}}" data-gm-page="classes">
+      <section class="class-manager">
+        <aside class="gm-panel class-roster">
+          <header class="student-directory-header">
+            <div>
+              <span class="section-label">Course Catalog</span>
+              <h2>Classes</h2>
+            </div>
+            <button type="button" data-action="add-row" data-collection="classes"><i class="fas fa-plus"></i> Add</button>
+          </header>
+          <p class="gm-muted">Specific sessions and dates are planned from the Calendar tab.</p>
+          <div class="student-roster-stats">
+            <div><strong>{{classCatalog.length}}</strong><span>Total</span></div>
+            <div><strong>{{classCollegeGroups.length}}</strong><span>Groups</span></div>
+            <div><strong>{{data.exams.length}}</strong><span>Exams</span></div>
+          </div>
+          {{#each classCollegeGroups}}
+            <details class="student-college-group class-college-group" open>
+              <summary>{{this.name}} <span>{{this.classes.length}}</span></summary>
+              <div class="student-roster-list">
+                {{#each this.classes}}
+                  <button type="button" class="student-roster-card class-roster-card {{#if this.selected}}active{{/if}}" data-action="select-class" data-id="{{this.id}}">
+                    <i class="fas fa-book-open"></i>
+                    <div>
+                      <strong>{{this.name}}</strong>
+                      <span>{{this.professorName}}</span>
+                      <small>{{this.timeLabel}} &middot; {{this.status}}</small>
+                    </div>
+                  </button>
+                {{/each}}
+              </div>
+            </details>
+          {{else}}
+            <p class="gm-muted">No classes yet. Add a class, then assign it to students from the Students tab.</p>
+          {{/each}}
+        </aside>
+
+        {{#if selectedClass}}
+          <section class="class-profile">
+            <article class="student-dossier-hero gm-panel class-dossier-hero">
+              <div class="student-portrait class-portrait">
+                <i class="fas fa-book-open"></i>
+              </div>
+              <div class="student-title-block">
+                <span class="section-label">Course Record</span>
+                <h2>{{selectedClass.name}}</h2>
+                <p>{{selectedClass.collegeLabel}} &middot; {{selectedClass.timeLabel}} &middot; {{selectedClass.status}}</p>
+                <div class="student-tag-strip">
+                  <span>{{selectedClass.professorName}}</span>
+                  <span>{{selectedClass.location}}</span>
+                  <span>Student checkbox source</span>
+                </div>
+              </div>
+              <div class="student-profile-actions">
+                <button type="button" class="danger" data-action="delete-row" data-collection="classes" data-id="{{selectedClass.id}}"><i class="fas fa-trash"></i> Remove</button>
+              </div>
+            </article>
+
+            <section class="student-dossier-grid class-dossier-grid">
+              <article class="gm-panel student-section-wide memory-panel">
+                <header class="student-section-header">
+                  <div>
+                    <span class="section-label">Class Details</span>
+                    <h2>Course Identity</h2>
+                  </div>
+                  <small>Appears as a checkbox on student records.</small>
+                </header>
+                <div class="gm-form-grid three">
+                  <label><span>Class Name</span><input class="class-title-input" data-action="save-row" data-collection="classes" data-id="{{selectedClass.id}}" data-field="name" value="{{selectedClass.name}}" placeholder="Class name"></label>
+                  <label><span>Status</span><input data-action="save-row" data-collection="classes" data-id="{{selectedClass.id}}" data-field="status" value="{{selectedClass.status}}" placeholder="Active"></label>
+                  <label>
+                    <span>Professor</span>
+                    <select data-action="save-row" data-collection="classes" data-id="{{selectedClass.id}}" data-field="professorFacultyId">
+                      {{#each selectedClass.professorOptions}}
+                        <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                      {{/each}}
+                    </select>
+                  </label>
+                  <label><span>College</span>
+                    <select data-action="save-row" data-collection="classes" data-id="{{selectedClass.id}}" data-field="college">
+                      {{#each selectedClass.collegeOptions}}
+                        <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                      {{/each}}
+                    </select>
+                  </label>
+                  <label><span>Start Time</span><input data-action="save-row" data-collection="classes" data-id="{{selectedClass.id}}" data-field="startTime" value="{{selectedClass.startTime}}" placeholder="9:00 AM"></label>
+                  <label><span>End Time</span><input data-action="save-row" data-collection="classes" data-id="{{selectedClass.id}}" data-field="endTime" value="{{selectedClass.endTime}}" placeholder="10:00 AM"></label>
+                  <label><span>Location</span><input data-action="save-row" data-collection="classes" data-id="{{selectedClass.id}}" data-field="location" value="{{selectedClass.location}}" placeholder="Room, hall, campus"></label>
+                </div>
+              </article>
+              <article class="gm-panel student-section-wide memory-panel">
+                <span class="section-label">Course Notes</span>
+                <h2>Lessons, Homework & Hooks</h2>
+                <label><span>Notes</span><textarea data-action="save-row" data-collection="classes" data-id="{{selectedClass.id}}" data-field="notes" placeholder="Lessons, homework style, exam hooks, professor quirks, meeting rhythm, schedule notes...">{{selectedClass.notes}}</textarea></label>
+              </article>
+            </section>
+          </section>
+        {{else}}
+          <article class="gm-panel student-empty-state">
+            <h2>No class selected</h2>
+            <p>Add a class to begin building the course catalog.</p>
+          </article>
+        {{/if}}
+      </section>
+    </section>
+
+    <section class="gm-tab-page {{#if activeTabs.exams}}active{{/if}}" data-gm-page="exams">
+      <article class="gm-panel exam-rules-banner">
+        <header class="gm-panel-header class-catalog-hero">
+          <div>
+            <span class="section-label">Study & Testing</span>
+            <h2>Exam Process</h2>
+            <p>Run Strixhaven exams in one sitting: prep first, then testing, with rerolls and cheating handled at the table.</p>
+          </div>
+        </header>
+      </article>
+      <div class="exam-rules-strip exam-study-rules exam-rules-top">
+        <section>
+          <strong>Study</strong>
+          <span>DM sets the study DC after hearing the student's study method and comparing it to the exam.</span>
+          <span>Success grants 1 reroll during the test.</span>
+        </section>
+        <section>
+          <strong>Study Together</strong>
+          <span>Group study gives advantage on the study roll.</span>
+          <span>Success grants 1 reroll during the test.</span>
+        </section>
+        <section>
+          <strong>All-Nighter</strong>
+          <span>Success grants 2 rerolls during the test.</span>
+          <span>The student also takes 1 level of exhaustion for the exam.</span>
+        </section>
+        <section>
+          <strong>Cheating</strong>
+          <span>Cheaters use Deception and Sleight of Hand against the cheating DC.</span>
+          <span>If caught, they fail and face discipline/standing consequences.</span>
+        </section>
       </div>
-      <label class="scm-full">
-        <span>Active Mystery</span>
-        <textarea name="focus.activeMystery">{{data.focus.activeMystery}}</textarea>
-      </label>
-      <div class="scm-generated">
-        <div>
-          <span>Campus Event</span>
-          <p>{{#if data.generated.event}}{{data.generated.event}}{{else}}Generate a campus event when the scene needs motion.{{/if}}</p>
-        </div>
-        <div>
-          <span>Rumor</span>
-          <p>{{#if data.generated.rumor}}{{data.generated.rumor}}{{else}}Generate a rumor when students start whispering.{{/if}}</p>
-        </div>
+
+      <section class="exam-manager">
+        <aside class="gm-panel exam-roster">
+          <header class="student-directory-header">
+            <div>
+              <span class="section-label">Exam Archive</span>
+              <h2>Exams</h2>
+            </div>
+            <button type="button" data-action="add-row" data-collection="exams"><i class="fas fa-plus"></i> Add</button>
+          </header>
+          <div class="student-roster-stats">
+            <div><strong>{{examCards.length}}</strong><span>Total</span></div>
+            <div><strong>{{examClassGroups.length}}</strong><span>Groups</span></div>
+            <div><strong>{{data.students.length}}</strong><span>Students</span></div>
+          </div>
+          {{#each examClassGroups}}
+            <details class="student-college-group exam-class-group" open>
+              <summary>{{this.name}} <span>{{this.exams.length}}</span></summary>
+              <div class="student-roster-list">
+                {{#each this.exams}}
+                  <button type="button" class="student-roster-card exam-roster-card {{#if this.selected}}active{{/if}}" data-action="select-exam" data-id="{{this.id}}">
+                    <i class="fas fa-scroll"></i>
+                    <div>
+                      <strong>{{this.name}}</strong>
+                      <span>DC {{this.dc}} &middot; {{this.checkOne}} / {{this.checkTwo}}</span>
+                      <small>{{this.classSummary}}</small>
+                    </div>
+                  </button>
+                {{/each}}
+              </div>
+            </details>
+          {{else}}
+            <p class="gm-muted">No exams yet. Add an exam, then run its checks from the detail panel.</p>
+          {{/each}}
+        </aside>
+
+        {{#if selectedExam}}
+          <section class="exam-profile">
+            <article class="student-dossier-hero gm-panel exam-dossier-hero">
+              <div class="student-portrait exam-portrait">
+                <i class="fas fa-scroll"></i>
+              </div>
+              <div class="student-title-block">
+                <span class="section-label">Exam Record</span>
+                <h2>{{selectedExam.name}}</h2>
+                <p>{{selectedExam.classSummary}} &middot; DC {{selectedExam.dc}}</p>
+                <div class="student-tag-strip">
+                  <span>{{selectedExam.checkOne}}</span>
+                  <span>{{selectedExam.checkTwo}}</span>
+                  <span>{{selectedExam.studentResults.length}} student records</span>
+                </div>
+              </div>
+              <div class="student-profile-actions">
+                <button type="button" class="danger" data-action="delete-row" data-collection="exams" data-id="{{selectedExam.id}}"><i class="fas fa-trash"></i> Remove</button>
+              </div>
+            </article>
+
+            <section class="student-dossier-grid exam-dossier-grid">
+              <article class="gm-panel student-section-wide memory-panel">
+                <header class="student-section-header">
+                  <div>
+                    <span class="section-label">Exam Setup</span>
+                    <h2>Class, DC & Checks</h2>
+                  </div>
+                  <small>Push rolls from this record when the test begins.</small>
+                </header>
+                <div class="gm-form-grid three">
+                  <label><span>Exam Name</span><input data-action="save-row" data-collection="exams" data-id="{{selectedExam.id}}" data-field="name" value="{{selectedExam.name}}" placeholder="Exam name"></label>
+                  <label>
+                    <span>Class</span>
+                    <select data-action="save-row" data-collection="exams" data-id="{{selectedExam.id}}" data-field="classId">
+                      {{#each selectedExam.classOptions}}
+                        <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                      {{/each}}
+                    </select>
+                  </label>
+                  <label><span>DC</span><input type="number" data-action="save-row" data-collection="exams" data-id="{{selectedExam.id}}" data-field="dc" value="{{selectedExam.dc}}"></label>
+                  <label>
+                    <span>Check 1</span>
+                    <select data-action="save-row" data-collection="exams" data-id="{{selectedExam.id}}" data-field="checkOne">
+                      {{#each selectedExam.checkOneOptions}}
+                        <option value="{{this.label}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                      {{/each}}
+                    </select>
+                  </label>
+                  <label>
+                    <span>Check 2</span>
+                    <select data-action="save-row" data-collection="exams" data-id="{{selectedExam.id}}" data-field="checkTwo">
+                      {{#each selectedExam.checkTwoOptions}}
+                        <option value="{{this.label}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                      {{/each}}
+                    </select>
+                  </label>
+                </div>
+              </article>
+
+              <article class="gm-panel student-section-wide memory-panel">
+                <span class="section-label">Exam Notes</span>
+                <h2>Scenario, Stakes & Professor Expectations</h2>
+                <label class="exam-notes-field"><span>Notes</span><textarea data-action="save-row" data-collection="exams" data-id="{{selectedExam.id}}" data-field="notes" placeholder="Exam scenario, topics, proctor, special rules...">{{selectedExam.notes}}</textarea></label>
+              </article>
+
+              <article class="gm-panel student-section-wide memory-panel">
+                <header class="student-section-header">
+                  <div>
+                    <span class="section-label">Testing</span>
+                    <h2>Roll Pushes</h2>
+                  </div>
+                  <small>Students marked as cheating are skipped by normal pushes.</small>
+                </header>
+                <div class="exam-push-all-strip">
+                  <button type="button" data-action="push-exam-roll-all" data-exam-id="{{selectedExam.id}}" data-field="testOneRoll" data-check-label="{{selectedExam.checkOne}}">
+                    Push {{selectedExam.checkOne}} to All Students
+                  </button>
+                  <button type="button" data-action="push-exam-roll-all" data-exam-id="{{selectedExam.id}}" data-field="testTwoRoll" data-check-label="{{selectedExam.checkTwo}}">
+                    Push {{selectedExam.checkTwo}} to All Students
+                  </button>
+                </div>
+              </article>
+
+              <section class="exam-student-results student-section-wide">
+                <h3>Student Exam Records</h3>
+                {{#each selectedExam.studentResults}}
+                  <article class="exam-student-row" data-exam-id="{{../selectedExam.id}}" data-result-id="{{this.id}}">
+                    <header>
+                      <strong>{{this.studentName}}</strong>
+                      <span data-exam-result-summary>{{this.finalResult}} &middot; Standing {{this.standingDelta}}</span>
+                    </header>
+                    <div class="exam-result-grid simplified">
+                      <label><span>{{../selectedExam.checkOne}}</span><input type="number" data-action="save-exam-result" data-exam-id="{{../selectedExam.id}}" data-result-id="{{this.id}}" data-field="testOneRoll" value="{{this.testOneRoll}}"></label>
+                      <label><span>{{../selectedExam.checkTwo}}</span><input type="number" data-action="save-exam-result" data-exam-id="{{../selectedExam.id}}" data-result-id="{{this.id}}" data-field="testTwoRoll" value="{{this.testTwoRoll}}"></label>
+                      <label><span>Calculated Outcome</span><input data-exam-calculated-outcome value="{{this.finalResult}}" readonly></label>
+                    </div>
+                    <section class="exam-cheat-package {{#if this.cheated}}active{{/if}}">
+                      <label class="exam-check-card">
+                        <input type="checkbox" data-action="save-exam-result" data-exam-id="{{../selectedExam.id}}" data-result-id="{{this.id}}" data-field="cheated" {{#if this.cheated}}checked{{/if}}>
+                        <span>Cheated</span>
+                        <small>Skip normal exam pushes. Resolve with Deception and Sleight of Hand.</small>
+                      </label>
+                      <label><span>Cheating DC</span><input type="number" data-action="save-exam-result" data-exam-id="{{../selectedExam.id}}" data-result-id="{{this.id}}" data-field="cheatingDc" value="{{this.cheatingDc}}"></label>
+                      <label class="exam-roll-field">
+                        <span>Deception</span>
+                        <div>
+                          <input type="number" data-action="save-exam-result" data-exam-id="{{../selectedExam.id}}" data-result-id="{{this.id}}" data-field="cheatingDeceptionRoll" value="{{this.cheatingDeceptionRoll}}">
+                          <button type="button" data-action="push-exam-roll" data-exam-id="{{../selectedExam.id}}" data-result-id="{{this.id}}" data-actor-id="{{this.actorId}}" data-field="cheatingDeceptionRoll" data-check-label="Deception">Push</button>
+                        </div>
+                      </label>
+                      <label class="exam-roll-field">
+                        <span>Sleight of Hand</span>
+                        <div>
+                          <input type="number" data-action="save-exam-result" data-exam-id="{{../selectedExam.id}}" data-result-id="{{this.id}}" data-field="cheatingSleightRoll" value="{{this.cheatingSleightRoll}}">
+                          <button type="button" data-action="push-exam-roll" data-exam-id="{{../selectedExam.id}}" data-result-id="{{this.id}}" data-actor-id="{{this.actorId}}" data-field="cheatingSleightRoll" data-check-label="Sleight of Hand">Push</button>
+                        </div>
+                      </label>
+                    </section>
+                    <label class="exam-result-notes"><span>Notes</span><textarea data-action="save-exam-result" data-exam-id="{{../selectedExam.id}}" data-result-id="{{this.id}}" data-field="notes">{{this.notes}}</textarea></label>
+                    <footer>
+                      <span data-exam-current-standing>Current: {{this.standing}} {{this.standingScore}}</span>
+                      <button type="button" data-action="apply-exam-standing" data-exam-id="{{../selectedExam.id}}" data-result-id="{{this.id}}" {{#if this.standingApplied}}disabled{{/if}}>
+                        {{#if this.standingApplied}}Standing Applied{{else}}Apply Standing Change{{/if}}
+                      </button>
+                    </footer>
+                  </article>
+                {{/each}}
+              </section>
+            </section>
+          </section>
+        {{else}}
+          <article class="gm-panel student-empty-state">
+            <h2>No exam selected</h2>
+            <p>Add an exam or project to begin tracking study prep, test checks, and standing changes.</p>
+          </article>
+        {{/if}}
+      </section>
+    </section>
+
+    <section class="gm-tab-page {{#if activeTabs.clubs}}active{{/if}}" data-gm-page="clubs">
+      <article class="gm-panel club-rules-panel club-rules-banner">
+        <header class="gm-panel-header">
+          <div>
+            <span class="section-label">Extracurricular Rules</span>
+            <h2>Campus Clubs & Societies</h2>
+            <p>Students can benefit from two extracurriculars, or one if they also hold a campus job.</p>
+          </div>
+        </header>
+      </article>
+      <div class="club-rule-grid club-rules-top">
+        <section>
+          <strong>Student Die</strong>
+          <span>Each extracurricular grants one d4. It can be added to an ability check using one of that club's listed skills.</span>
+        </section>
+        <section>
+          <strong>One Use</strong>
+          <span>A Student Die can be rolled after the d20, before success or failure is declared, then refreshes after a long rest.</span>
+        </section>
+        <section>
+          <strong>Relationship Point</strong>
+          <span>Participation grants either a positive or negative Relationship Point with one NPC member of that club.</span>
+        </section>
+        <section>
+          <strong>Joining & Quitting</strong>
+          <span>New benefits are normally gained at the start of an academic year. Quitting immediately removes the benefit.</span>
+        </section>
       </div>
-    </article>
-  </section>
 
-  <section class="scm-grid">
-    <article class="scm-panel">
-      <header class="scm-panel-header">
-        <h2>Classes</h2>
-        <button type="button" data-action="add-row" data-collection="classes">Add Class</button>
-      </header>
-      {{#each data.classes}}
-        <div class="scm-row">
-          <input data-action="save-row" data-collection="classes" data-id="{{this.id}}" data-field="name" value="{{this.name}}" placeholder="Class">
-          <input data-action="save-row" data-collection="classes" data-id="{{this.id}}" data-field="professor" value="{{this.professor}}" placeholder="Professor">
-          <input data-action="save-row" data-collection="classes" data-id="{{this.id}}" data-field="college" value="{{this.college}}" placeholder="College">
-          <input data-action="save-row" data-collection="classes" data-id="{{this.id}}" data-field="schedule" value="{{this.schedule}}" placeholder="Schedule">
-          <input data-action="save-row" data-collection="classes" data-id="{{this.id}}" data-field="status" value="{{this.status}}" placeholder="Status">
-          <textarea data-action="save-row" data-collection="classes" data-id="{{this.id}}" data-field="notes" placeholder="Notes">{{this.notes}}</textarea>
-          <button type="button" class="icon danger" data-action="delete-row" data-collection="classes" data-id="{{this.id}}"><i class="fas fa-trash"></i></button>
-        </div>
-      {{/each}}
-    </article>
+      <section class="club-manager">
+        <aside class="gm-panel club-roster">
+          <header class="student-directory-header">
+            <div>
+              <span class="section-label">Extracurriculars</span>
+              <h2>Club Directory</h2>
+            </div>
+            <button type="button" data-action="add-row" data-collection="clubs"><i class="fas fa-plus"></i> Add</button>
+          </header>
+          <div class="student-roster-stats">
+            <div><strong>{{clubCards.length}}</strong><span>Total</span></div>
+            <div><strong>{{data.students.length}}</strong><span>Students</span></div>
+            <div><strong>{{data.faculty.length}}</strong><span>Staff</span></div>
+          </div>
+          <div class="student-roster-list">
+            {{#each clubCards}}
+              <button type="button" class="student-roster-card club-roster-card {{#if this.selected}}active{{/if}}" data-action="select-club" data-id="{{this.id}}">
+                <i class="fas fa-users"></i>
+                <div>
+                  <strong>{{this.name}}</strong>
+                  <span>{{this.skillOne}} / {{this.skillTwo}}</span>
+                  <small>{{this.studentCount}} enrolled &middot; {{this.overseerName}}</small>
+                </div>
+              </button>
+            {{else}}
+              <p class="gm-muted">No clubs yet. Add an extracurricular to begin tracking members and Student Dice.</p>
+            {{/each}}
+          </div>
+        </aside>
 
-    <article class="scm-panel">
-      <header class="scm-panel-header">
-        <h2>Exams & Projects</h2>
-        <button type="button" data-action="add-row" data-collection="exams">Add Exam</button>
-      </header>
-      {{#each data.exams}}
-        <div class="scm-row">
-          <input data-action="save-row" data-collection="exams" data-id="{{this.id}}" data-field="name" value="{{this.name}}" placeholder="Exam or project">
-          <input data-action="save-row" data-collection="exams" data-id="{{this.id}}" data-field="className" value="{{this.className}}" placeholder="Class">
-          <input data-action="save-row" data-collection="exams" data-id="{{this.id}}" data-field="due" value="{{this.due}}" placeholder="Due">
-          <input data-action="save-row" data-collection="exams" data-id="{{this.id}}" data-field="status" value="{{this.status}}" placeholder="Status">
-          <input data-action="save-row" data-collection="exams" data-id="{{this.id}}" data-field="stakes" value="{{this.stakes}}" placeholder="Stakes">
-          <textarea data-action="save-row" data-collection="exams" data-id="{{this.id}}" data-field="notes" placeholder="Notes">{{this.notes}}</textarea>
-          <button type="button" class="icon danger" data-action="delete-row" data-collection="exams" data-id="{{this.id}}"><i class="fas fa-trash"></i></button>
-        </div>
-      {{/each}}
-    </article>
+        {{#if selectedClub}}
+          <section class="club-profile">
+            <article class="student-dossier-hero gm-panel club-dossier-hero">
+              <div class="student-portrait club-portrait">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="student-title-block">
+                <span class="section-label">Extracurricular Record</span>
+                <h2>{{selectedClub.name}}</h2>
+                <p>{{selectedClub.studentCount}} enrolled &middot; {{selectedClub.overseerName}}</p>
+                <div class="student-tag-strip">
+                  <span>{{selectedClub.skillOne}}</span>
+                  <span>{{selectedClub.skillTwo}}</span>
+                  <span>{{selectedClub.meeting}}</span>
+                </div>
+              </div>
+              <div class="student-profile-actions">
+                <button type="button" class="danger" data-action="delete-row" data-collection="clubs" data-id="{{selectedClub.id}}"><i class="fas fa-trash"></i> Remove</button>
+              </div>
+            </article>
 
-    <article class="scm-panel">
-      <header class="scm-panel-header">
-        <h2>Clubs</h2>
-        <button type="button" data-action="add-row" data-collection="clubs">Add Club</button>
-      </header>
-      {{#each data.clubs}}
-        <div class="scm-row compact">
-          <input data-action="save-row" data-collection="clubs" data-id="{{this.id}}" data-field="name" value="{{this.name}}" placeholder="Club">
-          <input data-action="save-row" data-collection="clubs" data-id="{{this.id}}" data-field="members" value="{{this.members}}" placeholder="Members">
-          <input data-action="save-row" data-collection="clubs" data-id="{{this.id}}" data-field="meeting" value="{{this.meeting}}" placeholder="Meeting">
-          <textarea data-action="save-row" data-collection="clubs" data-id="{{this.id}}" data-field="notes" placeholder="Notes">{{this.notes}}</textarea>
-          <button type="button" class="icon danger" data-action="delete-row" data-collection="clubs" data-id="{{this.id}}"><i class="fas fa-trash"></i></button>
-        </div>
-      {{/each}}
-    </article>
+            <section class="student-dossier-grid club-dossier-grid">
+              <article class="gm-panel student-section-wide memory-panel">
+                <header class="student-section-header">
+                  <div>
+                    <span class="section-label">Club Details</span>
+                    <h2>Identity, Skills & Overseer</h2>
+                  </div>
+                  <small>Student Dice from clubs appear on student records.</small>
+                </header>
+                <div class="gm-form-grid two">
+                  <label><span>Club Name</span><input class="club-name-input" data-action="save-row" data-collection="clubs" data-id="{{selectedClub.id}}" data-field="name" value="{{selectedClub.name}}" placeholder="Club name"></label>
+                  <label><span>Meeting / Timing</span><input data-action="save-row" data-collection="clubs" data-id="{{selectedClub.id}}" data-field="meeting" value="{{selectedClub.meeting}}" placeholder="Start of academic year, weekly, etc."></label>
+                  <label><span>Student Die Skill 1</span>
+                    <select data-action="save-row" data-collection="clubs" data-id="{{selectedClub.id}}" data-field="skillOne">
+                      {{#each selectedClub.skillOneOptions}}
+                        <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                      {{/each}}
+                    </select>
+                  </label>
+                  <label><span>Student Die Skill 2</span>
+                    <select data-action="save-row" data-collection="clubs" data-id="{{selectedClub.id}}" data-field="skillTwo">
+                      {{#each selectedClub.skillTwoOptions}}
+                        <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                      {{/each}}
+                    </select>
+                  </label>
+                  <label class="student-section-wide"><span>Faculty Overseer</span>
+                    <select data-action="save-row" data-collection="clubs" data-id="{{selectedClub.id}}" data-field="overseerFacultyId">
+                      {{#each selectedClub.overseerOptions}}
+                        <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                      {{/each}}
+                    </select>
+                  </label>
+                </div>
+              </article>
 
-    <article class="scm-panel">
-      <header class="scm-panel-header">
-        <h2>Relationships</h2>
-        <button type="button" data-action="add-row" data-collection="relationships">Add NPC</button>
-      </header>
-      {{#each data.relationships}}
-        <div class="scm-row relationship">
-          <input data-action="save-row" data-collection="relationships" data-id="{{this.id}}" data-field="name" value="{{this.name}}" placeholder="Name">
-          <input data-action="save-row" data-collection="relationships" data-id="{{this.id}}" data-field="role" value="{{this.role}}" placeholder="Role">
-          <input data-action="save-row" data-collection="relationships" data-id="{{this.id}}" data-field="college" value="{{this.college}}" placeholder="College">
-          <input type="number" data-action="save-row" data-collection="relationships" data-id="{{this.id}}" data-field="score" value="{{this.score}}" placeholder="Score">
-          <input data-action="save-row" data-collection="relationships" data-id="{{this.id}}" data-field="bond" value="{{this.bond}}" placeholder="Bond">
-          <textarea data-action="save-row" data-collection="relationships" data-id="{{this.id}}" data-field="notes" placeholder="Notes">{{this.notes}}</textarea>
-          <button type="button" class="icon danger" data-action="delete-row" data-collection="relationships" data-id="{{this.id}}"><i class="fas fa-trash"></i></button>
-        </div>
-      {{/each}}
-    </article>
+              <article class="gm-panel student-section-wide memory-panel">
+                <span class="section-label">Description</span>
+                <h2>Club Purpose & Campus Flavor</h2>
+                <label><span>Description</span><textarea data-action="save-row" data-collection="clubs" data-id="{{selectedClub.id}}" data-field="description">{{selectedClub.description}}</textarea></label>
+              </article>
 
-    <article class="scm-panel">
-      <header class="scm-panel-header">
-        <h2>Campaign Threads</h2>
-        <button type="button" data-action="add-row" data-collection="quests">Add Thread</button>
-      </header>
-      {{#each data.quests}}
-        <div class="scm-row compact">
-          <input data-action="save-row" data-collection="quests" data-id="{{this.id}}" data-field="title" value="{{this.title}}" placeholder="Thread">
-          <input data-action="save-row" data-collection="quests" data-id="{{this.id}}" data-field="type" value="{{this.type}}" placeholder="Type">
-          <input data-action="save-row" data-collection="quests" data-id="{{this.id}}" data-field="status" value="{{this.status}}" placeholder="Status">
-          <textarea data-action="save-row" data-collection="quests" data-id="{{this.id}}" data-field="notes" placeholder="Notes">{{this.notes}}</textarea>
-          <button type="button" class="icon danger" data-action="delete-row" data-collection="quests" data-id="{{this.id}}"><i class="fas fa-trash"></i></button>
+              <article class="gm-panel student-section-wide memory-panel">
+                <header class="student-section-header">
+                  <div>
+                    <span class="section-label">Enrollment</span>
+                    <h2>Members</h2>
+                  </div>
+                  <small>Benefit limit: two extracurriculars, or one with a campus job.</small>
+                </header>
+                <div class="club-enrollment-grid">
+                  <section class="club-student-list">
+                    <span class="section-label">Player Members</span>
+                    {{#each selectedClub.playerOptions}}
+                      <label class="club-student-option">
+                        <input type="checkbox" data-action="toggle-club-student" data-club-id="{{../selectedClub.id}}" data-student-id="{{this.id}}" data-student-name="{{this.name}}" {{#if this.selected}}checked{{/if}}>
+                        <strong>{{this.name}}</strong>
+                        <small>{{this.detail}}</small>
+                      </label>
+                    {{else}}
+                      <p class="gm-muted">No player student records found.</p>
+                    {{/each}}
+                  </section>
+                  <section class="club-student-list">
+                    <span class="section-label">NPC Members</span>
+                    {{#each selectedClub.npcOptions}}
+                      <label class="club-student-option">
+                        <input type="checkbox" data-action="toggle-club-student" data-club-id="{{../selectedClub.id}}" data-student-id="{{this.id}}" data-student-name="{{this.name}}" {{#if this.selected}}checked{{/if}}>
+                        <strong>{{this.name}}</strong>
+                        <small>{{this.detail}}</small>
+                      </label>
+                    {{else}}
+                      <p class="gm-muted">No student NPC records found.</p>
+                    {{/each}}
+                  </section>
+                </div>
+              </article>
+
+              <article class="gm-panel student-section-wide memory-panel">
+                <span class="section-label">Book NPC Members</span>
+                <h2>Official Members</h2>
+                <label><span>Book NPC Members</span><input data-action="save-row" data-collection="clubs" data-id="{{selectedClub.id}}" data-field="npcMembers" value="{{selectedClub.npcMembers}}" placeholder="Official or expected NPC members"></label>
+              </article>
+
+              <article class="gm-panel student-section-wide memory-panel">
+                <span class="section-label">Relationship Notes</span>
+                <h2>Relationship Point Tracking</h2>
+                <label><span>Relationship Point Notes</span><textarea data-action="save-row" data-collection="clubs" data-id="{{selectedClub.id}}" data-field="relationshipNotes" placeholder="+1 or -1 relationship point choices, rivalries, friendships...">{{selectedClub.relationshipNotes}}</textarea></label>
+              </article>
+
+              <article class="gm-panel student-section-wide memory-panel">
+                <span class="section-label">DM Notes</span>
+                <h2>Projects, Secrets & Story Hooks</h2>
+                <label><span>DM Notes</span><textarea data-action="save-row" data-collection="clubs" data-id="{{selectedClub.id}}" data-field="notes">{{selectedClub.notes}}</textarea></label>
+              </article>
+            </section>
+          </section>
+        {{else}}
+          <article class="gm-panel student-empty-state">
+            <h2>No club selected</h2>
+            <p>Add an extracurricular to begin managing members, overseers, Student Dice, and relationship point notes.</p>
+          </article>
+        {{/if}}
+      </section>
+    </section>
+
+    <section class="gm-tab-page {{#if activeTabs.jobs}}active{{/if}}" data-gm-page="jobs">
+      <article class="gm-panel club-rules-panel job-rules-banner">
+        <header class="gm-panel-header">
+          <div>
+            <span class="section-label">Campus Employment Rules</span>
+            <h2>Student Jobs</h2>
+            <p>Students can hold one job at a time. A working student can benefit from only one extracurricular while employed.</p>
+          </div>
+        </header>
+      </article>
+      <div class="club-rule-grid job-rules-top">
+        <section>
+          <strong>One Job</strong>
+          <span>A character can hold only one job at a time, but can switch jobs whenever the DM allows.</span>
+        </section>
+        <section>
+          <strong>Wage</strong>
+          <span>At the start of each week, a student holding a job earns the listed weekly wage.</span>
+        </section>
+        <section>
+          <strong>Relationship Point</strong>
+          <span>The student gains a positive or negative Relationship Point with one student NPC coworker at that job.</span>
+        </section>
+        <section>
+          <strong>Club Limit</strong>
+          <span>A student with a job can participate in only one extracurricular benefit at the same time.</span>
+        </section>
+      </div>
+
+      <section class="job-manager">
+        <aside class="gm-panel job-roster">
+          <header class="student-directory-header">
+            <div>
+              <span class="section-label">Campus Employment</span>
+              <h2>Job Directory</h2>
+            </div>
+            <button type="button" data-action="add-row" data-collection="jobs"><i class="fas fa-plus"></i> Add</button>
+          </header>
+          <div class="student-roster-stats">
+            <div><strong>{{jobCards.length}}</strong><span>Total</span></div>
+            <div><strong>{{data.students.length}}</strong><span>Students</span></div>
+            <div><strong>{{data.clubs.length}}</strong><span>Clubs</span></div>
+          </div>
+          <div class="student-roster-list">
+            {{#each jobCards}}
+              <button type="button" class="student-roster-card job-roster-card {{#if this.selected}}active{{/if}}" data-action="select-job" data-id="{{this.id}}">
+                <i class="fas fa-briefcase"></i>
+                <div>
+                  <strong>{{this.name}}</strong>
+                  <span>{{this.wageLabel}} weekly</span>
+                  <small>{{this.studentCount}} employed &middot; {{this.coworker}}</small>
+                </div>
+              </button>
+            {{else}}
+              <p class="gm-muted">No jobs yet. Add a campus job to begin tracking wages and employees.</p>
+            {{/each}}
+          </div>
+        </aside>
+
+        {{#if selectedJob}}
+          <section class="job-profile">
+            <article class="student-dossier-hero gm-panel job-dossier-hero">
+              <div class="student-portrait job-portrait">
+                <i class="fas fa-briefcase"></i>
+              </div>
+              <div class="student-title-block">
+                <span class="section-label">Campus Job Record</span>
+                <h2>{{selectedJob.name}}</h2>
+                <p>{{selectedJob.studentCount}} employed &middot; {{selectedJob.wageLabel}} weekly</p>
+                <div class="student-tag-strip">
+                  <span>{{selectedJob.coworker}}</span>
+                  <span>One job limit</span>
+                  <span>One club benefit while employed</span>
+                </div>
+              </div>
+              <div class="student-profile-actions">
+                <button type="button" class="danger" data-action="delete-row" data-collection="jobs" data-id="{{selectedJob.id}}"><i class="fas fa-trash"></i> Remove</button>
+              </div>
+            </article>
+
+            <section class="student-dossier-grid job-dossier-grid">
+              <article class="gm-panel student-section-wide memory-panel">
+                <header class="student-section-header">
+                  <div>
+                    <span class="section-label">Job Details</span>
+                    <h2>Workplace, Positions & Pay</h2>
+                  </div>
+                  <small>Job benefit: {{selectedJob.wageLabel}} and one coworker Relationship Point.</small>
+                </header>
+                <div class="gm-form-grid two">
+                  <label><span>Job Location</span><input class="club-name-input" data-action="save-row" data-collection="jobs" data-id="{{selectedJob.id}}" data-field="name" value="{{selectedJob.name}}" placeholder="Job location"></label>
+                  <label><span>NPC Coworker</span><input data-action="save-row" data-collection="jobs" data-id="{{selectedJob.id}}" data-field="coworker" value="{{selectedJob.coworker}}" placeholder="Student NPC coworker"></label>
+                  <label class="student-section-wide"><span>Available Positions</span><input data-action="save-row" data-collection="jobs" data-id="{{selectedJob.id}}" data-field="positions" value="{{selectedJob.positions}}" placeholder="Book clerk, server, cleanup crew..."></label>
+                </div>
+                <div class="job-wage-field job-profile-wage">
+                  <span>Weekly Wage</span>
+                  <div class="job-coin-grid">
+                    <label><small>Gold</small><input type="number" min="0" step="1" data-action="save-row" data-collection="jobs" data-id="{{selectedJob.id}}" data-field="wageGold" value="{{selectedJob.wageGold}}"></label>
+                    <label><small>Silver</small><input type="number" min="0" step="1" data-action="save-row" data-collection="jobs" data-id="{{selectedJob.id}}" data-field="wageSilver" value="{{selectedJob.wageSilver}}"></label>
+                    <label><small>Copper</small><input type="number" min="0" step="1" data-action="save-row" data-collection="jobs" data-id="{{selectedJob.id}}" data-field="wageCopper" value="{{selectedJob.wageCopper}}"></label>
+                  </div>
+                </div>
+              </article>
+
+              <article class="gm-panel student-section-wide memory-panel">
+                <span class="section-label">Description</span>
+                <h2>Workplace Flavor</h2>
+                <label><span>Description</span><textarea data-action="save-row" data-collection="jobs" data-id="{{selectedJob.id}}" data-field="description">{{selectedJob.description}}</textarea></label>
+              </article>
+
+              <article class="gm-panel student-section-wide memory-panel">
+                <header class="student-section-header">
+                  <div>
+                    <span class="section-label">Employment</span>
+                    <h2>Employees</h2>
+                  </div>
+                  <small>Students already employed elsewhere are marked.</small>
+                </header>
+                <div class="club-enrollment-grid">
+                  <section class="club-student-list">
+                    <span class="section-label">Player Employees</span>
+                    {{#each selectedJob.playerOptions}}
+                      <label class="club-student-option {{#if this.alreadyEmployed}}already-linked{{/if}}">
+                        <input type="checkbox" data-action="toggle-job-student" data-job-id="{{../selectedJob.id}}" data-student-id="{{this.id}}" {{#if this.selected}}checked{{/if}}>
+                        <strong>{{this.name}}</strong>
+                        <small>{{this.detail}}{{#if this.alreadyEmployed}} &middot; employed elsewhere{{/if}}</small>
+                      </label>
+                    {{else}}
+                      <p class="gm-muted">No player student records found.</p>
+                    {{/each}}
+                  </section>
+                  <section class="club-student-list">
+                    <span class="section-label">NPC Employees</span>
+                    {{#each selectedJob.npcOptions}}
+                      <label class="club-student-option {{#if this.alreadyEmployed}}already-linked{{/if}}">
+                        <input type="checkbox" data-action="toggle-job-student" data-job-id="{{../selectedJob.id}}" data-student-id="{{this.id}}" {{#if this.selected}}checked{{/if}}>
+                        <strong>{{this.name}}</strong>
+                        <small>{{this.detail}}{{#if this.alreadyEmployed}} &middot; employed elsewhere{{/if}}</small>
+                      </label>
+                    {{else}}
+                      <p class="gm-muted">No student NPC records found.</p>
+                    {{/each}}
+                  </section>
+                </div>
+              </article>
+
+              <article class="gm-panel student-section-wide memory-panel">
+                <span class="section-label">Relationship Notes</span>
+                <h2>Coworker Relationship Point</h2>
+                <label><span>Relationship Point Notes</span><textarea data-action="save-row" data-collection="jobs" data-id="{{selectedJob.id}}" data-field="relationshipNotes" placeholder="+1 or -1 relationship point choices with coworkers...">{{selectedJob.relationshipNotes}}</textarea></label>
+              </article>
+
+              <article class="gm-panel student-section-wide memory-panel">
+                <span class="section-label">DM Notes</span>
+                <h2>Workplace Hooks & Problems</h2>
+                <label><span>DM Notes</span><textarea data-action="save-row" data-collection="jobs" data-id="{{selectedJob.id}}" data-field="notes">{{selectedJob.notes}}</textarea></label>
+              </article>
+            </section>
+
+          {{#if selectedJob.__oldJobCardsHidden}}
+            <details class="club-card job-card" open>
+              <summary>
+                <div>
+                  <span class="section-label">Campus Job</span>
+                  <input class="club-name-input" data-action="save-row" data-collection="jobs" data-id="{{this.id}}" data-field="name" value="{{this.name}}" placeholder="Job location">
+                </div>
+                <div class="club-member-count">{{this.studentCount}} employed</div>
+              </summary>
+              <div class="club-card-body job-card-body">
+                <label class="club-wide"><span>Available Positions</span><input data-action="save-row" data-collection="jobs" data-id="{{this.id}}" data-field="positions" value="{{this.positions}}" placeholder="Book clerk, server, cleanup crew..."></label>
+                <label><span>NPC Coworker</span><input data-action="save-row" data-collection="jobs" data-id="{{this.id}}" data-field="coworker" value="{{this.coworker}}" placeholder="Student NPC coworker"></label>
+                <div class="job-wage-field">
+                  <span>Weekly Wage</span>
+                  <div class="job-coin-grid">
+                    <label><small>Gold</small><input type="number" min="0" step="1" data-action="save-row" data-collection="jobs" data-id="{{this.id}}" data-field="wageGold" value="{{this.wageGold}}"></label>
+                    <label><small>Silver</small><input type="number" min="0" step="1" data-action="save-row" data-collection="jobs" data-id="{{this.id}}" data-field="wageSilver" value="{{this.wageSilver}}"></label>
+                    <label><small>Copper</small><input type="number" min="0" step="1" data-action="save-row" data-collection="jobs" data-id="{{this.id}}" data-field="wageCopper" value="{{this.wageCopper}}"></label>
+                  </div>
+                </div>
+                <label class="club-wide"><span>Description</span><textarea data-action="save-row" data-collection="jobs" data-id="{{this.id}}" data-field="description">{{this.description}}</textarea></label>
+              </div>
+              <div class="club-enrollment-grid">
+                <section class="club-student-list">
+                  <span class="section-label">Player Employees</span>
+                  {{#each this.playerOptions}}
+                    <label class="club-student-option {{#if this.alreadyEmployed}}already-linked{{/if}}">
+                      <input type="checkbox" data-action="toggle-job-student" data-job-id="{{../id}}" data-student-id="{{this.id}}" {{#if this.selected}}checked{{/if}}>
+                      <strong>{{this.name}}</strong>
+                      <small>{{this.detail}}{{#if this.alreadyEmployed}} • employed elsewhere{{/if}}</small>
+                    </label>
+                  {{else}}
+                    <p class="gm-muted">No player student records found.</p>
+                  {{/each}}
+                </section>
+                <section class="club-student-list">
+                  <span class="section-label">NPC Employees</span>
+                  {{#each this.npcOptions}}
+                    <label class="club-student-option {{#if this.alreadyEmployed}}already-linked{{/if}}">
+                      <input type="checkbox" data-action="toggle-job-student" data-job-id="{{../id}}" data-student-id="{{this.id}}" {{#if this.selected}}checked{{/if}}>
+                      <strong>{{this.name}}</strong>
+                      <small>{{this.detail}}{{#if this.alreadyEmployed}} • employed elsewhere{{/if}}</small>
+                    </label>
+                  {{else}}
+                    <p class="gm-muted">No student NPC records found.</p>
+                  {{/each}}
+                </section>
+              </div>
+              <label class="club-wide"><span>Relationship Point Notes</span><textarea data-action="save-row" data-collection="jobs" data-id="{{this.id}}" data-field="relationshipNotes" placeholder="+1 or -1 relationship point choices with coworkers...">{{this.relationshipNotes}}</textarea></label>
+              <label class="club-wide"><span>DM Notes</span><textarea data-action="save-row" data-collection="jobs" data-id="{{this.id}}" data-field="notes">{{this.notes}}</textarea></label>
+              <footer>
+                <small>Job benefit: {{this.wageLabel}} and one coworker Relationship Point.</small>
+                <button type="button" class="danger" data-action="delete-row" data-collection="jobs" data-id="{{this.id}}"><i class="fas fa-trash"></i> Remove</button>
+              </footer>
+            </details>
+          {{/if}}
+          </section>
+        {{else}}
+          <article class="gm-panel student-empty-state">
+            <h2>No job selected</h2>
+            <p>Add a campus job to begin managing wages, employees, coworker relationships, and workplace notes.</p>
+          </article>
+        {{/if}}
+      </section>
+    </section>
+
+    <section class="gm-tab-page {{#if activeTabs.campus}}active{{/if}}" data-gm-page="campus">
+      <article class="gm-panel campus-rules-banner">
+        <header class="gm-panel-header">
+          <div>
+            <span class="section-label">Campus Archive</span>
+            <h2>Strixhaven Locations</h2>
+            <p>Track buildings, classrooms, dorms, libraries, cafés, club rooms, secret places, and future scene/map links.</p>
+          </div>
+        </header>
+      </article>
+      <div class="club-rule-grid campus-rules-top">
+        <section>
+          <strong>Locations</strong>
+          <span>Campus records describe places the students can visit, study, work, investigate, or get into trouble.</span>
+        </section>
+        <section>
+          <strong>Calendar Use</strong>
+          <span>Calendar campus events can use this editable location list when planning school events.</span>
+        </section>
+        <section>
+          <strong>Scene Links</strong>
+          <span>Use the Scene ID field to remember which Foundry scene belongs to a location.</span>
+        </section>
+        <section>
+          <strong>Secrets</strong>
+          <span>Keep hidden paths, locked rooms, rumors, and DM-only discoveries on the selected location profile.</span>
+        </section>
+      </div>
+
+      <section class="campus-manager">
+        <aside class="gm-panel campus-roster">
+          <header class="student-directory-header">
+            <div>
+              <span class="section-label">Campus</span>
+              <h2>Location Directory</h2>
+            </div>
+            <button type="button" data-action="add-row" data-collection="campusLocations"><i class="fas fa-plus"></i> Add</button>
+          </header>
+          <div class="student-roster-stats">
+            <div><strong>{{campusLocationCards.length}}</strong><span>Total</span></div>
+            <div><strong>{{data.classes.length}}</strong><span>Classes</span></div>
+            <div><strong>{{data.calendarEvents.length}}</strong><span>Events</span></div>
+          </div>
+          <div class="student-roster-list">
+            {{#each campusLocationCards}}
+              <button type="button" class="student-roster-card campus-roster-card {{#if this.selected}}active{{/if}}" data-action="select-campus-location" data-id="{{this.id}}">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                  <strong>{{this.name}}</strong>
+                  <span>{{this.type}}</span>
+                  <small>{{this.collegeLabel}}</small>
+                </div>
+              </button>
+            {{else}}
+              <p class="gm-muted">No campus locations yet. Add a location to begin building the school map.</p>
+            {{/each}}
+          </div>
+        </aside>
+
+        {{#if selectedCampusLocation}}
+          <section class="campus-profile">
+            <article class="student-dossier-hero gm-panel campus-dossier-hero">
+              <div class="student-portrait campus-portrait">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="student-title-block">
+                <span class="section-label">Campus Location</span>
+                <h2>{{selectedCampusLocation.name}}</h2>
+                <p>{{selectedCampusLocation.type}} &middot; {{selectedCampusLocation.collegeLabel}}</p>
+                <div class="student-tag-strip">
+                  <span>{{selectedCampusLocation.notableNpc}}</span>
+                  <span>{{#if selectedCampusLocation.sceneId}}Scene linked{{else}}No scene linked{{/if}}</span>
+                  <span>Calendar location</span>
+                </div>
+              </div>
+              <div class="student-profile-actions">
+                <button type="button" class="danger" data-action="delete-row" data-collection="campusLocations" data-id="{{selectedCampusLocation.id}}"><i class="fas fa-trash"></i> Remove</button>
+              </div>
+            </article>
+
+            <section class="student-dossier-grid campus-dossier-grid">
+              <article class="gm-panel student-section-wide memory-panel">
+                <header class="student-section-header">
+                  <div>
+                    <span class="section-label">Location Details</span>
+                    <h2>Identity & Map Link</h2>
+                  </div>
+                  <small>Scene ID can point to a Foundry scene later.</small>
+                </header>
+                <div class="gm-form-grid two">
+                  <label><span>Location Name</span><input data-action="save-row" data-collection="campusLocations" data-id="{{selectedCampusLocation.id}}" data-field="name" value="{{selectedCampusLocation.name}}" placeholder="Biblioplex, dorm, classroom..."></label>
+                  <label><span>Type</span><input data-action="save-row" data-collection="campusLocations" data-id="{{selectedCampusLocation.id}}" data-field="type" value="{{selectedCampusLocation.type}}" placeholder="Library, dorm, classroom, hidden room..."></label>
+                  <label><span>College / Area</span>
+                    <select data-action="save-row" data-collection="campusLocations" data-id="{{selectedCampusLocation.id}}" data-field="college">
+                      {{#each selectedCampusLocation.collegeOptions}}
+                        <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                      {{/each}}
+                    </select>
+                  </label>
+                  <label><span>Scene ID</span><input data-action="save-row" data-collection="campusLocations" data-id="{{selectedCampusLocation.id}}" data-field="sceneId" value="{{selectedCampusLocation.sceneId}}" placeholder="Foundry Scene ID"></label>
+                  <label class="student-section-wide"><span>Notable NPC / Contact</span><input data-action="save-row" data-collection="campusLocations" data-id="{{selectedCampusLocation.id}}" data-field="notableNpc" value="{{selectedCampusLocation.notableNpc}}" placeholder="Professor, student, staff member, spirit..."></label>
+                </div>
+              </article>
+
+              <article class="gm-panel student-section-wide memory-panel">
+                <span class="section-label">Description</span>
+                <h2>What Students See</h2>
+                <label><span>Description</span><textarea data-action="save-row" data-collection="campusLocations" data-id="{{selectedCampusLocation.id}}" data-field="description" placeholder="Public description, atmosphere, normal activity...">{{selectedCampusLocation.description}}</textarea></label>
+              </article>
+
+              <article class="gm-panel student-section-wide memory-panel">
+                <span class="section-label">Secrets</span>
+                <h2>DM-Only Discoveries</h2>
+                <label><span>Secrets</span><textarea data-action="save-row" data-collection="campusLocations" data-id="{{selectedCampusLocation.id}}" data-field="secrets" placeholder="Hidden doors, mysteries, restricted rooms, rumors...">{{selectedCampusLocation.secrets}}</textarea></label>
+              </article>
+
+              <article class="gm-panel student-section-wide memory-panel">
+                <span class="section-label">DM Notes</span>
+                <h2>Scene Hooks & Future Use</h2>
+                <label><span>Notes</span><textarea data-action="save-row" data-collection="campusLocations" data-id="{{selectedCampusLocation.id}}" data-field="notes" placeholder="Encounter ideas, event hooks, maps, reminders...">{{selectedCampusLocation.notes}}</textarea></label>
+              </article>
+            </section>
+          </section>
+        {{else}}
+          <article class="gm-panel student-empty-state">
+            <h2>No campus location selected</h2>
+            <p>Add a location to begin building the Strixhaven campus archive.</p>
+          </article>
+        {{/if}}
+      </section>
+    </section>
+
+    <section class="gm-tab-page {{#if activeTabs.calendar}}active{{/if}}" data-gm-page="calendar">
+      <section class="gm-board two">
+        <article class="gm-panel">
+          <header class="gm-panel-header">
+            <h2>Daily Schedule</h2>
+            <button type="button" data-action="advance-day"><i class="fas fa-sun"></i> Advance Day</button>
+          </header>
+          <div class="gm-callout calendar-source">
+            <span>Calendar Integration</span>
+            <p>{{data.calendar.source}}{{#if data.calendar.dateLabel}} &middot; {{data.calendar.dateLabel}}{{/if}}</p>
+          </div>
+          <div class="simple-calendar-board">
+            <header class="simple-calendar-board-header">
+              <div>
+                <span class="section-label">Simple Calendar Month</span>
+                <h3>{{calendarMonth.title}}</h3>
+              </div>
+              <small>{{calendarMonth.source}}</small>
+            </header>
+            {{#if calendarMonth.connected}}
+              <div class="simple-calendar-month-grid">
+                {{#each calendarMonth.days}}
+                  <button type="button" class="simple-calendar-day {{#if this.isToday}}today{{/if}}" data-action="open-calendar-day" data-date='{{this.payload}}'>
+                    <strong>{{this.number}}</strong>
+                    {{#if this.name}}<span>{{this.name}}</span>{{/if}}
+                    {{#if this.noteCount}}<em>{{this.noteCount}} notes</em>{{/if}}
+                  </button>
+                {{/each}}
+              </div>
+            {{else}}
+              <div class="gm-callout">
+                <p>Simple Calendar Reborn is not readable yet. Once it is active, Vital Quest will show the current month here.</p>
+              </div>
+            {{/if}}
+          </div>
+          <div class="gm-form-grid four">
+            <label>
+              <span>Term</span>
+              <input type="text" name="calendar.term" value="{{data.calendar.term}}">
+            </label>
+            <label>
+              <span>Week</span>
+              <input type="number" min="1" name="calendar.week" value="{{data.calendar.week}}">
+            </label>
+            <label>
+              <span>Day</span>
+              <input type="text" value="{{data.calendar.day}}" readonly>
+            </label>
+            <label>
+              <span>Time</span>
+              <input type="text" value="{{data.calendar.timeOfDay}}" readonly>
+            </label>
+          </div>
+          <div class="school-agenda">
+            <header class="agenda-header">
+              <div>
+                <span class="section-label">Read from Simple Calendar Notes</span>
+                <h3>Remaining Today</h3>
+              </div>
+              <small>{{schoolAgenda.currentDay}} {{#if schoolAgenda.currentTime}}&middot; {{schoolAgenda.currentTime}}{{/if}}</small>
+            </header>
+            <div class="agenda-list">
+              {{#each livingSchedule.today}}
+                <article class="agenda-item">
+                  <i class="fas {{this.icon}}"></i>
+                  <div>
+                    <strong>{{this.title}}</strong>
+                    <span>{{this.type}} &middot; {{this.day}} &middot; {{this.time}}</span>
+                    {{#if this.subtitle}}<small>{{this.subtitle}}</small>{{/if}}
+                  </div>
+                  <em>{{this.source}}</em>
+                </article>
+              {{else}}
+                <div class="gm-callout">
+                  <p>No remaining Simple Calendar notes for today. Add events by clicking a date on the month board.</p>
+                </div>
+              {{/each}}
+            </div>
+          </div>
+        </article>
+        <article class="gm-panel">
+          <h2>Upcoming Schedule</h2>
+          <p class="gm-muted">Vital Quest reads Simple Calendar Reborn as the clock, then shows the rest of today and tomorrow. As time passes, past entries fall away.</p>
+          <div class="agenda-list compact">
+            {{#each livingSchedule.upcoming}}
+              <article class="agenda-item">
+                <i class="fas {{this.icon}}"></i>
+                <div>
+                  <strong>{{this.title}}</strong>
+                  <span>{{this.type}} &middot; {{this.day}} &middot; {{this.time}}</span>
+                  {{#if this.subtitle}}<small>{{this.subtitle}}</small>{{/if}}
+                </div>
+              </article>
+            {{else}}
+              <div class="gm-callout">
+                <p>No Simple Calendar notes found for today or tomorrow. Click a calendar date to plan classes, exams, clubs, campus events, or story beats.</p>
+              </div>
+            {{/each}}
+          </div>
+        </article>
+      </section>
+    </section>
+
+    <section class="gm-tab-page {{#if activeTabs.story}}active{{/if}}" data-gm-page="story">
+      <article class="gm-panel">
+        <header class="gm-panel-header">
+          <h2>Campaign Threads</h2>
+          <button type="button" data-action="add-row" data-collection="quests">Add Thread</button>
+        </header>
+        <div class="gm-table">
+          {{#each data.quests}}
+            <div class="gm-row quests">
+              <input data-action="save-row" data-collection="quests" data-id="{{this.id}}" data-field="title" value="{{this.title}}" placeholder="Thread">
+              <input data-action="save-row" data-collection="quests" data-id="{{this.id}}" data-field="type" value="{{this.type}}" placeholder="Type">
+              <input data-action="save-row" data-collection="quests" data-id="{{this.id}}" data-field="status" value="{{this.status}}" placeholder="Status">
+              <textarea data-action="save-row" data-collection="quests" data-id="{{this.id}}" data-field="notes" placeholder="Notes">{{this.notes}}</textarea>
+              <button type="button" class="icon danger" data-action="delete-row" data-collection="quests" data-id="{{this.id}}"><i class="fas fa-trash"></i></button>
+            </div>
+          {{/each}}
         </div>
-      {{/each}}
-    </article>
-  </section>
+      </article>
+    </section>
+
+    <section class="gm-tab-page {{#if activeTabs.tools}}active{{/if}}" data-gm-page="tools">
+      <section class="tools-control-room">
+        <article class="gm-panel tools-hero">
+          <div>
+            <span class="section-label">Control Room</span>
+            <h2>Vital Quest Tools</h2>
+            <p>Configure campaign-wide options, sync the Journal archive, reference standing rules, and generate quick inspiration without leaving the GM screen.</p>
+          </div>
+          <button type="button" data-action="save-tools-settings"><i class="fas fa-save"></i> Save Tool Settings</button>
+        </article>
+
+        <section class="tools-grid">
+          <article class="gm-panel tools-card tools-settings-card">
+            <header class="tools-card-header">
+              <i class="fas fa-sliders-h"></i>
+              <div>
+                <span class="section-label">Setup</span>
+                <h2>Campaign Settings</h2>
+              </div>
+            </header>
+            <p class="gm-muted">These choices affect dropdowns and school structure across Vital Quest.</p>
+            <div class="gm-form-grid">
+              <label>
+                <span>Number of School Years</span>
+                <input type="number" min="1" max="10" step="1" name="tools.schoolYearCount" value="{{toolSettings.schoolYearCount}}">
+                <small>Controls the Year dropdown on student enrollment records.</small>
+              </label>
+            </div>
+          </article>
+
+          <article class="gm-panel tools-card tools-wide">
+            <header class="tools-card-header">
+              <i class="fas fa-user-tie"></i>
+              <div>
+                <span class="section-label">Editable Lists</span>
+                <h2>Faculty Dropdowns</h2>
+              </div>
+            </header>
+            <p class="gm-muted">Put one option per line. Existing custom values stay available on their current records until changed.</p>
+            <div class="gm-form-grid two">
+              <label>
+                <span>Faculty Roles</span>
+                <textarea name="tools.facultyRoles" placeholder="Professor&#10;Dean&#10;Librarian">{{toolSettings.facultyRolesText}}</textarea>
+              </label>
+              <label>
+                <span>Faculty Departments</span>
+                <textarea name="tools.facultyDepartments" placeholder="Silverquill&#10;General Studies&#10;Staff">{{toolSettings.facultyDepartmentsText}}</textarea>
+              </label>
+            </div>
+          </article>
+
+          <article class="gm-panel tools-card">
+            <header class="tools-card-header">
+              <i class="fas fa-folder-tree"></i>
+              <div>
+                <span class="section-label">Archive</span>
+                <h2>Journal Sync</h2>
+              </div>
+            </header>
+            <p>Creates or repairs the Vital Quest Journal folder system without duplicating folders that already exist.</p>
+            <div class="tools-action-box">
+              <button type="button" data-action="sync-journal"><i class="fas fa-arrows-rotate"></i> Sync Journal Archive</button>
+              <small>Records live under Journal &gt; Vital Quest. Actor sheets stay linked.</small>
+            </div>
+          </article>
+
+          <article class="gm-panel tools-card tools-generator-card">
+            <header class="tools-card-header">
+              <i class="fas fa-wand-sparkles"></i>
+              <div>
+                <span class="section-label">Generator</span>
+                <h2>Campus Event</h2>
+              </div>
+            </header>
+            <div class="tools-result-box">
+              <p>{{#if data.generated.event}}{{data.generated.event}}{{else}}No event generated yet.{{/if}}</p>
+            </div>
+            <button type="button" data-action="generate-event"><i class="fas fa-wand-sparkles"></i> Generate Event</button>
+          </article>
+
+          <article class="gm-panel tools-card tools-generator-card">
+            <header class="tools-card-header">
+              <i class="fas fa-comment-dots"></i>
+              <div>
+                <span class="section-label">Generator</span>
+                <h2>Rumor</h2>
+              </div>
+            </header>
+            <div class="tools-result-box">
+              <p>{{#if data.generated.rumor}}{{data.generated.rumor}}{{else}}No rumor generated yet.{{/if}}</p>
+            </div>
+            <button type="button" data-action="generate-rumor"><i class="fas fa-comment-dots"></i> Generate Rumor</button>
+          </article>
+
+          <article class="gm-panel tools-card tools-wide standing-reference-card">
+            <header class="tools-card-header">
+              <i class="fas fa-scale-balanced"></i>
+              <div>
+                <span class="section-label">Reference</span>
+                <h2>Academic Standing</h2>
+              </div>
+            </header>
+            <p>Standing replaces GPA. It represents academic trust, discipline, faculty confidence, campus reputation, and expulsion risk.</p>
+            <div class="standing-ladder compact">
+              <div><strong>75 to 100</strong><span>Honored Scholar</span></div>
+              <div><strong>50 to 74</strong><span>Distinguished</span></div>
+              <div><strong>25 to 49</strong><span>Commended</span></div>
+              <div><strong>5 to 24</strong><span>Good Standing</span></div>
+              <div><strong>-4 to 4</strong><span>Watched</span></div>
+              <div><strong>-20 to -5</strong><span>Concern</span></div>
+              <div><strong>-40 to -21</strong><span>Probation</span></div>
+              <div><strong>-60 to -41</strong><span>Final Warning</span></div>
+              <div><strong>-80 to -61</strong><span>Expulsion Review</span></div>
+              <div><strong>-100 to -81</strong><span>Expelled</span></div>
+            </div>
+          </article>
+
+          <details class="gm-panel tools-card tools-wide standing-reference-card tools-reference-drawer">
+            <summary>
+              <span><i class="fas fa-list-check"></i> Example Standing Changes</span>
+              <small>Open quick reference</small>
+            </summary>
+            <div class="standing-change-grid">
+              <section>
+                <span class="section-label">Academic</span>
+                <div class="standing-change-list">
+                  <div><span>Ace exam</span><strong>+6</strong></div>
+                  <div><span>Pass exam</span><strong>+3</strong></div>
+                  <div><span>Fail exam</span><strong>-4</strong></div>
+                  <div><span>Miss exam</span><strong>-8</strong></div>
+                  <div><span>Major class project success</span><strong>+5</strong></div>
+                  <div><span>Academic competition win</span><strong>+8</strong></div>
+                  <div><span>Help another student study</span><strong>+2</strong></div>
+                </div>
+              </section>
+              <section>
+                <span class="section-label">Discipline</span>
+                <div class="standing-change-list">
+                  <div><span>Caught cheating</span><strong>-15</strong></div>
+                  <div><span>Minor rule violation</span><strong>-4</strong></div>
+                  <div><span>Restricted area violation</span><strong>-8</strong></div>
+                  <div><span>Property damage</span><strong>-10</strong></div>
+                  <div><span>Magical endangerment</span><strong>-15 to -25</strong></div>
+                  <div><span>Ignored faculty warning</span><strong>-3</strong></div>
+                  <div><span>Repeated absence</span><strong>-5</strong></div>
+                </div>
+              </section>
+              <section>
+                <span class="section-label">Redemption</span>
+                <div class="standing-change-list">
+                  <div><span>Completed detention</span><strong>+4</strong></div>
+                  <div><span>Faculty recommendation</span><strong>+8</strong></div>
+                  <div><span>Community service</span><strong>+5</strong></div>
+                  <div><span>Apology or reparations</span><strong>+4</strong></div>
+                  <div><span>Heroic campus action</span><strong>+10 to +20</strong></div>
+                </div>
+              </section>
+              <section>
+                <span class="section-label">Social & Clubs</span>
+                <div class="standing-change-list">
+                  <div><span>Club leadership</span><strong>+4</strong></div>
+                  <div><span>Club competition win</span><strong>+6</strong></div>
+                  <div><span>Public embarrassment</span><strong>-3</strong></div>
+                  <div><span>Major campus scandal</span><strong>-10</strong></div>
+                  <div><span>Helped faculty or staff</span><strong>+5</strong></div>
+                </div>
+              </section>
+            </div>
+          </details>
+
+          <article class="gm-panel tools-card danger-zone tools-danger-card">
+            <header class="tools-card-header">
+              <i class="fas fa-triangle-exclamation"></i>
+              <div>
+                <span class="section-label">Danger Zone</span>
+                <h2>Reset Vital Quest</h2>
+              </div>
+            </header>
+            <p>Wipe all Vital Quest campaign-manager data for this world.</p>
+            <button type="button" class="danger" data-action="reset-manager"><i class="fas fa-rotate-left"></i> Reset Data</button>
+          </article>
+        </section>
+      </section>
+    </section>
+  </main>
 </form>
+

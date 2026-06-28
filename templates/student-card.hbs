@@ -1,0 +1,328 @@
+<section class="scm-shell crystal-card student-card college-{{collegeKey}}">
+  <section class="crystal-device student-phone">
+    <div class="crystal-glow"></div>
+    <div class="phone-speaker"></div>
+
+    <header class="phone-status-bar">
+      <span>{{data.calendar.timeOfDay}}</span>
+      <span><i class="fas fa-wifi"></i> StrixNet</span>
+      <span><i class="fas fa-battery-three-quarters"></i></span>
+    </header>
+
+    <main class="crystal-screen phone-screen">
+      <section class="crystal-page phone-home active" data-crystal-page="home">
+        <header class="phone-hero">
+          <div>
+            <p class="scm-kicker">Vital Quest</p>
+            <h1>{{student.name}}</h1>
+            <span>{{student.college}} &middot; {{student.year}}</span>
+          </div>
+          <div class="crystal-orb" title="{{college.label}}">
+            <i class="fas fa-gem"></i>
+          </div>
+        </header>
+
+        <section class="phone-widget-grid">
+          <article class="phone-widget featured">
+            <span>Today</span>
+            <strong>{{data.calendar.day}}</strong>
+            <small>{{#if data.calendar.dateLabel}}{{data.calendar.dateLabel}}{{else}}{{data.calendar.term}} &middot; Week {{data.calendar.week}}{{/if}}</small>
+          </article>
+          <article class="phone-widget">
+            <span>Standing</span>
+            <strong>{{student.academicStanding}}</strong>
+            <small>{{student.academicStandingScore}} points</small>
+          </article>
+        </section>
+
+        <section class="phone-app-grid" aria-label="Vital Quest apps">
+          <button type="button" data-crystal-tab="today">
+            <i class="fas fa-sun"></i>
+            <span>Today</span>
+          </button>
+          <button type="button" data-crystal-tab="calendar">
+            <i class="fas fa-calendar-plus"></i>
+            <span>Calendar</span>
+          </button>
+          <button type="button" data-crystal-tab="classes">
+            <i class="fas fa-book-open"></i>
+            <span>Classes</span>
+          </button>
+          <button type="button" data-crystal-tab="people">
+            <i class="fas fa-user-friends"></i>
+            <span>People</span>
+          </button>
+          <button type="button" data-crystal-tab="campus">
+            <i class="fas fa-star"></i>
+            <span>Campus Life</span>
+          </button>
+          <button type="button" data-crystal-tab="story">
+            <i class="fas fa-scroll"></i>
+            <span>Story</span>
+          </button>
+          <button type="button" data-crystal-tab="profile">
+            <i class="fas fa-id-card"></i>
+            <span>Profile</span>
+          </button>
+        </section>
+
+        <article class="phone-notification-card">
+          <span class="section-label">Current Arc</span>
+          <strong>{{data.focus.currentArc}}</strong>
+          <p>{{#if data.focus.activeMystery}}{{data.focus.activeMystery}}{{else}}No mystery has been revealed yet.{{/if}}</p>
+        </article>
+      </section>
+
+      <section class="crystal-page phone-app-page" data-crystal-page="today">
+        <header class="phone-page-header">
+          <button type="button" data-crystal-tab="home"><i class="fas fa-chevron-left"></i></button>
+          <div>
+            <span class="section-label">Daily Briefing</span>
+            <h2>Today at Strixhaven</h2>
+          </div>
+        </header>
+        <article class="scm-panel featured">
+          <h2>{{data.calendar.day}} &middot; {{data.calendar.timeOfDay}}</h2>
+          <p class="calendar-source-line">{{data.calendar.source}}{{#if data.calendar.dateLabel}} &middot; {{data.calendar.dateLabel}}{{/if}}</p>
+          <p>{{data.calendar.notes}}</p>
+        </article>
+        <article class="scm-panel">
+          <h2>Today's Planner</h2>
+          {{#each studentPlanner.today}}
+            <div class="read-card phone-planner-card">
+              <time>{{this.time}}</time>
+              <div>
+                <strong>{{this.title}}</strong>
+                <span>{{this.typeLabel}} &middot; {{this.audience}}</span>
+                {{#if this.details}}<p>{{this.details}}</p>{{/if}}
+              </div>
+            </div>
+          {{else}}
+            <p>No calendar items are scheduled for you today.</p>
+          {{/each}}
+        </article>
+        <article class="scm-panel">
+          <h2>Next Up</h2>
+          {{#each studentPlanner.upcoming}}
+            <div class="read-card phone-planner-card">
+              <time>{{this.time}}</time>
+              <div>
+                <strong>{{this.title}}</strong>
+                <span>{{this.displayDate}} &middot; {{this.typeLabel}}</span>
+                {{#if this.details}}<p>{{this.details}}</p>{{/if}}
+              </div>
+            </div>
+          {{else}}
+            <p>No upcoming schedule items are currently visible for your card.</p>
+          {{/each}}
+        </article>
+      </section>
+
+      <section class="crystal-page phone-app-page" data-crystal-page="calendar">
+        <header class="phone-page-header">
+          <button type="button" data-crystal-tab="home"><i class="fas fa-chevron-left"></i></button>
+          <div>
+            <span class="section-label">Personal Planner</span>
+            <h2>Calendar</h2>
+          </div>
+        </header>
+        <article class="scm-panel featured phone-calendar-action-card">
+          <div>
+            <h2>Add to your schedule</h2>
+            <p>Create a personal calendar item that only appears on your planner, plus party-wide events from the GM.</p>
+          </div>
+          <button type="button" class="primary" data-action="student-add-calendar-event">
+            <i class="fas fa-calendar-plus"></i> Add Event
+          </button>
+        </article>
+        <article class="scm-panel">
+          <h2>Your Visible Calendar</h2>
+          {{#each studentPlanner.all}}
+            <div class="read-card phone-planner-card {{#if this.canDelete}}has-action{{/if}}">
+              <time>{{this.time}}</time>
+              <div>
+                <strong>{{this.title}}</strong>
+                <span>{{this.displayDate}} &middot; {{this.typeLabel}} &middot; {{this.audience}}</span>
+                {{#if this.details}}<p>{{this.details}}</p>{{/if}}
+              </div>
+              {{#if this.canDelete}}
+                <button type="button" class="phone-planner-delete" data-action="student-delete-calendar-event" data-event-id="{{this.id}}" title="Delete personal event">
+                  <i class="fas fa-trash"></i>
+                </button>
+              {{/if}}
+            </div>
+          {{else}}
+            <p>Your calendar is clear. Suspiciously peaceful.</p>
+          {{/each}}
+        </article>
+      </section>
+
+      <section class="crystal-page phone-app-page" data-crystal-page="classes">
+        <header class="phone-page-header">
+          <button type="button" data-crystal-tab="home"><i class="fas fa-chevron-left"></i></button>
+          <div>
+            <span class="section-label">Academics</span>
+            <h2>Classes & Exams</h2>
+          </div>
+        </header>
+        <article class="scm-panel">
+          <h2>Current Classes</h2>
+          {{#each studentClasses}}
+            <div class="read-card">
+              <strong>{{this.name}}</strong>
+              <span>{{this.scheduleLabel}}</span>
+              <p>{{this.professorLabel}}</p>
+              <small>{{this.college}}</small>
+            </div>
+          {{else}}
+            <p>No classes assigned yet.</p>
+          {{/each}}
+        </article>
+        <article class="scm-panel">
+          <h2>Exams & Projects</h2>
+          {{#each studentExams}}
+            <div class="read-card">
+              <strong>{{this.name}}</strong>
+              <span>{{this.className}}</span>
+              <p>{{this.scheduleLabel}}</p>
+            </div>
+          {{else}}
+            <p>No exams are currently posted.</p>
+          {{/each}}
+        </article>
+      </section>
+
+      <section class="crystal-page phone-app-page" data-crystal-page="people">
+        <header class="phone-page-header">
+          <button type="button" data-crystal-tab="home"><i class="fas fa-chevron-left"></i></button>
+          <div>
+            <span class="section-label">Contacts</span>
+            <h2>People</h2>
+          </div>
+        </header>
+        <article class="scm-panel">
+          <h2>Relationship Links</h2>
+          {{#each knownPeople}}
+            <div class="read-card relationship-read-card phone-contact-card">
+              {{#if this.img}}<img src="{{this.img}}" alt="{{this.name}}">{{else}}<i class="fas fa-user"></i>{{/if}}
+              <div>
+                <strong>{{this.name}}</strong>
+                <span>{{this.status}}</span>
+                <p>{{this.notes}}</p>
+                <small>Relationship {{this.score}}</small>
+              </div>
+            </div>
+          {{else}}
+            <p>No relationship records yet.</p>
+          {{/each}}
+        </article>
+      </section>
+
+      <section class="crystal-page phone-app-page" data-crystal-page="campus">
+        <header class="phone-page-header">
+          <button type="button" data-crystal-tab="home"><i class="fas fa-chevron-left"></i></button>
+          <div>
+            <span class="section-label">Campus Life</span>
+            <h2>Clubs, Jobs & Dice</h2>
+          </div>
+        </header>
+        <article class="scm-panel">
+          <h2>Commitments</h2>
+          {{#each studentCommitments}}
+            <div class="read-card">
+              <strong><i class="fas {{this.icon}}"></i> {{this.name}}</strong>
+              <span>{{this.type}} &middot; {{this.detail}}</span>
+              <p>{{this.note}}</p>
+            </div>
+          {{else}}
+            <p>No clubs or jobs assigned yet.</p>
+          {{/each}}
+        </article>
+        <article class="scm-panel">
+          <h2>Student Dice</h2>
+          {{#each studentDice}}
+            <div class="read-card">
+              <strong>{{this.skill}}</strong>
+              <span>{{this.dice}}</span>
+              <p>{{this.count}} source(s)</p>
+            </div>
+          {{else}}
+            <p>No Student Dice earned yet.</p>
+          {{/each}}
+        </article>
+      </section>
+
+      <section class="crystal-page phone-app-page" data-crystal-page="story">
+        <header class="phone-page-header">
+          <button type="button" data-crystal-tab="home"><i class="fas fa-chevron-left"></i></button>
+          <div>
+            <span class="section-label">Story</span>
+            <h2>Threads & Whispers</h2>
+          </div>
+        </header>
+        <article class="scm-panel">
+          <h2>Active Threads</h2>
+          {{#each data.quests}}
+            <div class="read-card">
+              <strong>{{this.title}}</strong>
+              <span>{{this.type}} &middot; {{this.status}}</span>
+              <p>{{this.notes}}</p>
+            </div>
+          {{else}}
+            <p>No active campaign threads are visible.</p>
+          {{/each}}
+        </article>
+        <article class="scm-panel">
+          <h2>Campus Whispers</h2>
+          <div class="read-card">
+            <strong>Rumor</strong>
+            <p>{{#if data.generated.rumor}}{{data.generated.rumor}}{{else}}No rumor has reached your card yet.{{/if}}</p>
+          </div>
+          <div class="read-card">
+            <strong>Campus Event</strong>
+            <p>{{#if data.generated.event}}{{data.generated.event}}{{else}}No campus event is currently pulsing through the card.{{/if}}</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="crystal-page phone-app-page" data-crystal-page="profile">
+        <header class="phone-page-header">
+          <button type="button" data-crystal-tab="home"><i class="fas fa-chevron-left"></i></button>
+          <div>
+            <span class="section-label">Student ID</span>
+            <h2>Profile</h2>
+          </div>
+        </header>
+        <article class="scm-panel featured phone-id-card">
+          {{#if student.img}}<img src="{{student.img}}" alt="{{student.name}}">{{else}}<i class="fas fa-user-graduate"></i>{{/if}}
+          <div>
+            <h2>{{student.name}}</h2>
+            <p>{{student.college}} &middot; {{student.year}}</p>
+            <small>{{#if student.player}}{{student.player}}{{else}}Student record{{/if}}</small>
+          </div>
+        </article>
+        <article class="scm-panel">
+          <h2>School Record</h2>
+          <div class="phone-info-list">
+            <div><span>Dorm</span><strong>{{student.dormName}} {{student.dorm}}</strong></div>
+            <div><span>Standing</span><strong>{{student.academicStanding}} ({{student.academicStandingScore}})</strong></div>
+            <div><span>Reputation</span><strong>{{student.reputation}}</strong></div>
+            <div><span>Advisor</span><strong>{{#if student.advisor}}{{student.advisor}}{{else}}Unassigned{{/if}}</strong></div>
+          </div>
+        </article>
+        <article class="scm-panel">
+          <h2>{{college.label}}</h2>
+          <p>{{college.description}}</p>
+        </article>
+      </section>
+    </main>
+
+    <nav class="phone-dock" aria-label="Phone dock">
+      <button type="button" class="active" data-crystal-tab="home"><i class="fas fa-house"></i><span>Home</span></button>
+      <button type="button" data-crystal-tab="today"><i class="fas fa-sun"></i><span>Today</span></button>
+      <button type="button" data-crystal-tab="calendar"><i class="fas fa-calendar-plus"></i><span>Plans</span></button>
+      <button type="button" data-crystal-tab="classes"><i class="fas fa-book-open"></i><span>Study</span></button>
+      <button type="button" data-crystal-tab="profile"><i class="fas fa-id-card"></i><span>ID</span></button>
+    </nav>
+  </section>
+</section>
