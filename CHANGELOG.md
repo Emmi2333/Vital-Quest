@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.96
+
+- Updated package author display name to Emmi.
+- Bumped the package version so Forge refreshes release metadata cleanly.
+
 ## 0.1.95
 
 - Added screenshot assets for the package showcase page.
